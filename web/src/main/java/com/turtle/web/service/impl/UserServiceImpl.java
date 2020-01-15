@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    @TargetDataSource(DataSourceKey.MASTER)
     public List<User> getUserList() {
         return userMapper.selectList(null);
     }

@@ -73,7 +73,7 @@ public class DuridConfig {
 
         mybatisSqlSessionFactoryBean.setDataSource(dynamicDataSource());
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        mybatisSqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+        mybatisSqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:mapper/*.xml"));
         mybatisSqlSessionFactoryBean.setConfiguration(configuration);
 
         return mybatisSqlSessionFactoryBean;

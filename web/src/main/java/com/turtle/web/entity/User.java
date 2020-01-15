@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @TableName("tbg_user")
 public class User {
     private long id;
-    private String userName;
+    private String username;
     private String name;
     private String avatar;
     private String email;
