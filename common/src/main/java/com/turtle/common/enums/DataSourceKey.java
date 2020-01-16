@@ -1,4 +1,4 @@
-package com.turtle.common.config.enums;
+package com.turtle.common.enums;
 
 /**
  * @author lijiayu

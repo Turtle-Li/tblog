@@ -1,6 +1,6 @@
 package com.turtle.common.config.mybatis;
 
-import com.turtle.common.config.enums.DataSourceKey;
+import com.turtle.common.enums.DataSourceKey;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,5 @@
 package com.turtle.web.service.impl;
 
-import com.turtle.common.config.aop.TargetDataSource;
-import com.turtle.common.config.enums.DataSourceKey;
 import com.turtle.web.entity.User;
 import com.turtle.web.mapper.UserMapper;
 import com.turtle.web.service.UserService;

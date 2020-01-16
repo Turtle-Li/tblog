@@ -1,6 +1,6 @@
-package com.turtle.common.config.aop.aspect;
+package com.turtle.common.aop.aspect;
 
-import com.turtle.common.config.aop.TargetDataSource;
+import com.turtle.common.aop.TargetDataSource;
 import com.turtle.common.config.mybatis.DynamicDataSourceContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

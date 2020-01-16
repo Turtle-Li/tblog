@@ -6,10 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 @MapperScan("com.turtle.web.mapper")
 @ComponentScan(basePackages = {
-        "com.turtle.common.config"
+        "com.turtle.common.config",
+        "com.turtle.web.controller",
+        "com.turtle.web.service",
+        "com.turtle.common.handler"
                                 })
 public class WebApplication {
 

@@ -1,7 +1,7 @@
-package com.turtle.common.config.aop;
+package com.turtle.common.aop;
 
 
-import com.turtle.common.config.enums.DataSourceKey;
+import com.turtle.common.enums.DataSourceKey;
 
 import java.lang.annotation.*;
 
