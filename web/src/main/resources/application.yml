@@ -41,6 +41,17 @@ spring:
   application:
     name: web
     #RabbitMq
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
   rabbitmq:
     host: 123.206.217.166
     port: 5672

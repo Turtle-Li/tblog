@@ -1,0 +1,30 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: gateway  #微服务名字
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      enabled: true  #是否开启网关，是否与服务发现组件进行结合，通过serviceId转发到具体的服务实例。默认为false，为true代表开启基于服务发现的路由规则。
+      discovery:
+        locator:
+          lower-case-service-id: true  # 配置之后访问时无需大写
+      routes:
+        # Add your routes here.
+        - id: web
+          uri: lb://web
+          predicates: #规则
+            - Path=/college/**
+            # 设置权重 为95%
+            #  - Weight=service1, 95
+          filters:
+            - StripPrefix=1
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8011
+      datasource.ds1.file:
+        file: "classpath: gateway.json"
+        ruleType: gw-flow
