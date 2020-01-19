@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 121.43.184.44:8848
     gateway:
       enabled: true  #是否开启网关，是否与服务发现组件进行结合，通过serviceId转发到具体的服务实例。默认为false，为true代表开启基于服务发现的路由规则。
       discovery:
@@ -24,7 +24,7 @@ spring:
             - StripPrefix=1
     sentinel:
       transport:
-        dashboard: 127.0.0.1:8011
+        dashboard: 121.43.184.44:8011
       datasource.ds1.file:
         file: "classpath: gateway.json"
         ruleType: gw-flow
