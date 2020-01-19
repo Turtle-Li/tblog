@@ -1,14 +1,14 @@
 spring:
   #RabbitMq
   rabbitmq:
-    host: 123.206.217.166 #rabbitmq的主机ip
+    host: 123.206.217.166
     port: 5672
     username: guest
     password: Ljy123456789
   #mail
   mail:
     username: lijiayu@ljygrgc.onexmail.com
-    password: Ljy123456789 #授权码开启SMTP服务里设置
+    password: Ljy123456789
     host: smtp.exmail.qq.com
 
     properties:

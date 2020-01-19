@@ -40,6 +40,7 @@ spring:
       useGlobalDataSourceStat: true
   application:
     name: web
+    #RabbitMq
   cloud:
     nacos:
       discovery:
@@ -53,14 +54,9 @@ management:
 
   rabbitmq:
     host: 123.206.217.166
-    post: 5672
+    port: 5672
     username: guest
     password: Ljy123456789
-    listener:
-      simple:
-        concurrency: 10
-        max-concurrency: 20
-        prefetch: 5
     ## Redis 配置
   redis:
     host: 123.206.217.166
