@@ -26,10 +26,7 @@ public class SendListener {
     @RabbitListener(queues = "emailDirect")
     public void sendEmil(Map<String,String> sendMsg){
         try {
-            sendMailUtils.sendEmail(
-                    sendMsg.get("receiver"),
-                    sendMsg.get("text")
-            );
+            sendMailUtils.sendCodeEmail(sendMsg.get("receiver"));
         } catch (MessagingException e) {
             e.printStackTrace();
         }

@@ -9,13 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(scanBasePackages = {"com.turtle.web","com.turtle.common"})
 @MapperScan("com.turtle.web.mapper")
-//@ComponentScan(basePackages = {
-//        "com.turtle.common.config",
-//        "com.turtle.web.controller",
-//        "com.turtle.web.service",
-//        "com.turtle.common.handler",
-//        "com.turtle.web.config"
-//                                })
 public class WebApplication {
 
     public static void main(String[] args) {

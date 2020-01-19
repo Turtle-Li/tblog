@@ -1,4 +1,4 @@
-package com.turtle.web.config;
+package com.turtle.web.config.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

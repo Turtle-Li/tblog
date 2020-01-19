@@ -1,5 +1,6 @@
 package com.turtle.sms.util;
 
+import com.turtle.common.util.RedisUtil;
 import com.turtle.sms.constant.emailConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -24,6 +26,9 @@ public class SendMailUtils {
     @Autowired
     private JavaMailSenderImpl mailSender;
 
+    @Resource
+    private RedisUtil redisUtil;
+
     /**
      * 发送邮件
      *
@@ -36,13 +41,13 @@ public class SendMailUtils {
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);//multipart:true
 
         helper.setSubject("turtle博客网站验证邮件");
-
-        helper.setText(String.format(emailConst.EMAIL_TEXT, (int) (Math.random() * 100000)), true);
+        int code = (int) (Math.random() * 1000000);
+        helper.setText(String.format(emailConst.EMAIL_TEXT, code), true);
         helper.setTo(receiver);//邮件接收人
         helper.setFrom(SENDER);//邮件发送者
 
         mailSender.send(mimeMessage);
-
-        System.out.println("邮件发送成功");
+        //验证码存缓存
+        redisUtil.set(receiver,code,600);
     }
 }

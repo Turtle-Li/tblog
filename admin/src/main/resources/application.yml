@@ -1,9 +1,13 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /v1
 spring:
   datasource:
     druid:
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        # ä¸»æ•°æ®æºï¼Œé»˜è®¤çš„
+        # Ö÷Êı¾İÔ´£¬Ä¬ÈÏµÄ
         type: com.alibaba.druid.pool.DruidDataSource
         url: jdbc:mysql://123.206.217.166:3306/turtle?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
         username: root
@@ -14,32 +18,32 @@ spring:
         url: jdbc:mysql://123.206.217.166:3306/db_mblog?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
         username: root
         password: 123456
-      # ä¸‹é¢ä¸ºè¿æ¥æ± çš„è¡¥å……è®¾ç½®ï¼Œåº”ç”¨åˆ°ä¸Šé¢æ‰€æœ‰æ•°æ®æºä¸­
-      # åˆå§‹åŒ–å¤§å°ï¼Œæœ€å°ï¼Œæœ€å¤§
+      # ÏÂÃæÎªÁ¬½Ó³ØµÄ²¹³äÉèÖÃ£¬Ó¦ÓÃµ½ÉÏÃæËùÓĞÊı¾İÔ´ÖĞ
+      # ³õÊ¼»¯´óĞ¡£¬×îĞ¡£¬×î´ó
       initialSize: 5
       minIdle: 5
       maxActive: 20
-      # é…ç½®è·å–è¿æ¥ç­‰å¾…è¶…æ—¶çš„æ—¶é—´
+      # ÅäÖÃ»ñÈ¡Á¬½ÓµÈ´ı³¬Ê±µÄÊ±¼ä
       maxWait: 60000
-      # é…ç½®é—´éš”å¤šä¹…æ‰è¿›è¡Œä¸€æ¬¡æ£€æµ‹ï¼Œæ£€æµ‹éœ€è¦å…³é—­çš„ç©ºé—²è¿æ¥ï¼Œå•ä½æ˜¯æ¯«ç§’
+      # ÅäÖÃ¼ä¸ô¶à¾Ã²Å½øĞĞÒ»´Î¼ì²â£¬¼ì²âĞèÒª¹Ø±ÕµÄ¿ÕÏĞÁ¬½Ó£¬µ¥Î»ÊÇºÁÃë
       timeBetweenEvictionRunsMillis: 60000
-      # é…ç½®ä¸€ä¸ªè¿æ¥åœ¨æ± ä¸­æœ€å°ç”Ÿå­˜çš„æ—¶é—´ï¼Œå•ä½æ˜¯æ¯«ç§’
+      # ÅäÖÃÒ»¸öÁ¬½ÓÔÚ³ØÖĞ×îĞ¡Éú´æµÄÊ±¼ä£¬µ¥Î»ÊÇºÁÃë
       minEvictableIdleTimeMillis: 300000
       validationQuery: SELECT 1 FROM DUAL
       testWhileIdle: true
       testOnBorrow: false
       testOnReturn: false
-      # æ‰“å¼€PSCacheï¼Œå¹¶ä¸”æŒ‡å®šæ¯ä¸ªè¿æ¥ä¸ŠPSCacheçš„å¤§å°
+      # ´ò¿ªPSCache£¬²¢ÇÒÖ¸¶¨Ã¿¸öÁ¬½ÓÉÏPSCacheµÄ´óĞ¡
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 25
-      # é…ç½®ç›‘æ§ç»Ÿè®¡æ‹¦æˆªçš„filtersï¼Œå»æ‰åç›‘æ§ç•Œé¢sqlæ— æ³•ç»Ÿè®¡ï¼Œ'wall'ç”¨äºé˜²ç«å¢™
+      # ÅäÖÃ¼à¿ØÍ³¼ÆÀ¹½ØµÄfilters£¬È¥µôºó¼à¿Ø½çÃæsqlÎŞ·¨Í³¼Æ£¬'wall'ÓÃÓÚ·À»ğÇ½
       filters: stat,wall,logback
-      # é€šè¿‡connectPropertieså±æ€§æ¥æ‰“å¼€mergeSqlåŠŸèƒ½ï¼›æ…¢SQLè®°å½•
+      # Í¨¹ıconnectPropertiesÊôĞÔÀ´´ò¿ªmergeSql¹¦ÄÜ£»ÂıSQL¼ÇÂ¼
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-      # åˆå¹¶å¤šä¸ªDruidDataSourceçš„ç›‘æ§æ•°æ®
+      # ºÏ²¢¶à¸öDruidDataSourceµÄ¼à¿ØÊı¾İ
       useGlobalDataSourceStat: true
   application:
-    name: web
+    name: admin
     #RabbitMq
   cloud:
     nacos:
@@ -50,7 +54,7 @@ spring:
     port: 5672
     username: guest
     password: Ljy123456789
-    ## Redis é…ç½®
+    ## Redis ÅäÖÃ
   redis:
     host: 123.206.217.166
     port: 6379
@@ -62,18 +66,24 @@ management:
         include: "*"
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
-#webè¯·æ±‚æ—¥å¿—
+#webÇëÇóÈÕÖ¾
 logbook:
   format:
     style: curl
 
-#æ—¥å¿—çº§åˆ«
+#ÈÕÖ¾¼¶±ğ
 logging:
   level:
     root: info
     org.zalando.logbook: TRACE
     com.sishu: TRACE
-server:
-  port: 8080
-  servlet:
-    context-path: /v1
+
+##jwtÅäÖÃ
+tokenHead: bearer
+tokenHeader: Authorization
+isRememberMeExpiresSecond: 259200 #¼Ç×¡ÕËºÅÎª3ÌìÓĞĞ§
+audience:
+  clientId: 098f6bcd4621d373cade4e832627b4f6
+  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  name: turtle
+  expiresSecond: 3600  #1¸öĞ¡Ê±

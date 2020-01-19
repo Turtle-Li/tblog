@@ -1,13 +1,8 @@
-package com.turtle.web.controller;
+package com.turtle.admin.controller;
 
-import com.turtle.common.aop.TargetDataSource;
-import com.turtle.common.enums.ExceptionEnum;
-import com.turtle.common.exception.BizException;
-import com.turtle.common.exception.FrontRequestException;
+import com.turtle.admin.entity.User;
+import com.turtle.admin.service.UserService;
 import com.turtle.common.send.RabbitSender;
-import com.turtle.common.util.RedisUtil;
-import com.turtle.web.entity.User;
-import com.turtle.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +31,6 @@ public class UserController {
     public List<User> getUser(Integer type){
         Map<String,String> map = new HashMap<>();
         map.put("receiver","282189765@qq.com");
-        map.put("text","test");
         rabbitSender.sendEmil(map);
         return userService.getUserList();
     }

@@ -5,6 +5,10 @@ spring:
     port: 5672
     username: guest
     password: Ljy123456789
+  redis:
+    host: 123.206.217.166
+    port: 6379
+    timeout: 1000
   #mail
   mail:
     username: lijiayu@ljygrgc.onexmail.com

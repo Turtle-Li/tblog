@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.SignatureException;
 
 /**
  * @author lijiayu
@@ -43,6 +44,10 @@ public class GlobalExceptionHandler {
         return ResultBody.error("500","NullPointerException");
     }
 
+    @ExceptionHandler(value = { SignatureException.class })
+    public ResultBody authorizationException(SignatureException e){
+        return ResultBody.error("8001",e.getMessage());
+    }
 
     /**
      * 处理其他异常
