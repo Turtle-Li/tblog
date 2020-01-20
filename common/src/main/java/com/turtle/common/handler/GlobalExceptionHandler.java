@@ -4,10 +4,12 @@ import com.turtle.common.enums.ExceptionEnum;
 import com.turtle.common.exception.BizException;
 import com.turtle.common.vo.ResultBody;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.SignatureException;
@@ -42,11 +44,6 @@ public class GlobalExceptionHandler {
     public ResultBody exceptionHandler(HttpServletRequest req, NullPointerException e){
         log.error("A nullPointerException has occurred！reason:",e);
         return ResultBody.error("500","NullPointerException");
-    }
-
-    @ExceptionHandler(value = { SignatureException.class })
-    public ResultBody authorizationException(SignatureException e){
-        return ResultBody.error("8001",e.getMessage());
     }
 
     /**

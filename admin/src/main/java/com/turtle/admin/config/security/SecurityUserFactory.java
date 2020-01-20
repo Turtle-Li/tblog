@@ -18,8 +18,8 @@ public final class SecurityUserFactory {
         boolean enabled = (user.getStatus() == EnableStatus.ENABLE) ? true : false;
         return new SecurityUser(
                 user.getId(),
-                user.getUserName(),
-                user.getPassWord(),
+                user.getUsername(),
+                user.getPassword(),
                 enabled,
                 mapToGrantedAuthorities(authorities)
         );

@@ -1,10 +1,12 @@
-package com.turtle.common.config.mybatis;
+package com.turtle.admin.config.druid;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.turtle.common.config.mybatis.DynamicDataSourceContextHolder;
+import com.turtle.common.config.mybatis.DynamicRoutingDataSource;
 import com.turtle.common.enums.DataSourceKey;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -28,7 +30,7 @@ import java.util.Map;
  * @description
  */
 @Configuration
-public class DuridConfig {
+public class DruidConfig {
 
 
     @ConfigurationProperties(prefix = "spring.datasource.druid.master")

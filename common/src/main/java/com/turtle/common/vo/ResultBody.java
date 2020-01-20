@@ -20,11 +20,6 @@ public class ResultBody {
      */
     private String message;
 
-    /**
-     * 响应结果
-     */
-    private Object result;
-
     public ResultBody() {
     }
 
@@ -49,33 +44,14 @@ public class ResultBody {
         this.message = message;
     }
 
-    public Object getResult() {
-        return result;
-    }
-
-    public void setResult(Object result) {
-        this.result = result;
-    }
-
     /**
      * 成功
-     *
      * @return
      */
     public static ResultBody success() {
-        return success(null);
-    }
-
-    /**
-     * 成功
-     * @param data
-     * @return
-     */
-    public static ResultBody success(Object data) {
         ResultBody rb = new ResultBody();
         rb.setCode(ExceptionEnum.SUCCESS.getResultCode());
         rb.setMessage(ExceptionEnum.SUCCESS.getResultMsg());
-        rb.setResult(data);
         return rb;
     }
 
@@ -86,7 +62,6 @@ public class ResultBody {
         ResultBody rb = new ResultBody();
         rb.setCode(errorInfo.getResultCode());
         rb.setMessage(errorInfo.getResultMsg());
-        rb.setResult(null);
         return rb;
     }
 
@@ -97,7 +72,6 @@ public class ResultBody {
         ResultBody rb = new ResultBody();
         rb.setCode(code);
         rb.setMessage(message);
-        rb.setResult(null);
         return rb;
     }
 
@@ -108,7 +82,6 @@ public class ResultBody {
         ResultBody rb = new ResultBody();
         rb.setCode("-1");
         rb.setMessage(message);
-        rb.setResult(null);
         return rb;
     }
 

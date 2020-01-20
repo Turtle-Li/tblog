@@ -2,6 +2,8 @@ package com.turtle.admin.controller;
 
 import com.turtle.admin.entity.User;
 import com.turtle.admin.service.UserService;
+import com.turtle.common.exception.BizException;
+import com.turtle.common.exception.FrontRequestException;
 import com.turtle.common.send.RabbitSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,20 +20,14 @@ import java.util.Map;
  * @description
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/pub")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RabbitSender rabbitSender;
-
     @GetMapping("/test")
     public List<User> getUser(Integer type){
-        Map<String,String> map = new HashMap<>();
-        map.put("receiver","282189765@qq.com");
-        rabbitSender.sendEmil(map);
         return userService.getUserList();
     }
 }

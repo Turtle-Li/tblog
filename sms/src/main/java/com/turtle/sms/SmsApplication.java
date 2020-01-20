@@ -1,10 +1,12 @@
 package com.turtle.sms;
 
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.turtle.sms","com.turtle.common"},
+        exclude = {DruidDataSourceAutoConfigure.class, DataSourceAutoConfiguration.class})
 public class SmsApplication {
 
     public static void main(String[] args) {
