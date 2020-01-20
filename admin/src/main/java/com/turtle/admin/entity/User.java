@@ -29,4 +29,5 @@ public class User {
     private int comments;
     private int posts;
     private String signature;
+    private int isDelete;
 }

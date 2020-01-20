@@ -6,14 +6,14 @@ spring:
     username: guest
     password: Ljy123456789
   redis:
-    host: 123.206.217.166
+    host: 47.111.250.3
     port: 6379
     timeout: 1000
   #mail
   mail:
-    username: lijiayu@ljygrgc.onexmail.com
-    password: Ljy123456789
-    host: smtp.exmail.qq.com
+    username: turtle_blog@163.com
+    password: turtle123456
+    host: smtp.163.com
 
     properties:
       mail:

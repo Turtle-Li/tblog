@@ -15,6 +15,7 @@ public class SecurityUser implements UserDetails {
     private final long uid;
     private final String username;
     private final String password;
+    private final int status;
     private final boolean enabled;
     private final Collection<? extends GrantedAuthority> authorities;
 
@@ -22,11 +23,13 @@ public class SecurityUser implements UserDetails {
             long uid,
             String username,
             String password,
+            int status,
             boolean enabled,
             Collection<? extends GrantedAuthority> authorities) {
         this.uid = uid;
         this.username = username;
         this.password = password;
+        this.status = status;
         this.enabled = enabled;
         this.authorities = authorities;
     }
@@ -51,6 +54,11 @@ public class SecurityUser implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+
+    public int getStatus() {
+        return status;
     }
 
     // 账户是否激活

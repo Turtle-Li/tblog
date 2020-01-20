@@ -1,5 +1,6 @@
 package com.turtle.admin.config.security;
 
+import com.turtle.admin.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,22 +16,6 @@ public class SecurityUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-//        QueryWrapper<Admin> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq(SQLConf.USER_NAME, username);
-//        Admin admin = adminService.getOne(queryWrapper);
-//
-//        if (admin == null) {
-//            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-//        } else {
-//            //查询出角色信息封装到admin中
-//            List<String> roleNames = new ArrayList<>();
-//            Role role = roleService.getById(admin.getRoleUid());
-//            roleNames.add(role.getRoleName());
-//
-//            admin.setRoleNames(roleNames);
-//
-//            return SecurityUserFactory.create(admin);
-//        }
-        return null;
+        return SecurityUserFactory.create(new User(),List.of());
     }
 }

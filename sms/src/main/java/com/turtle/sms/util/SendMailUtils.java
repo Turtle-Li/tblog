@@ -31,22 +31,22 @@ public class SendMailUtils {
     /**
      * 发送邮件
      *
-     * @param receiver
+     * @param email
      */
-    public void sendCodeEmail(String receiver) throws MessagingException {
+    public void sendCodeEmail(String email) throws MessagingException {
         //创建一个复杂的消息邮件
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);//multipart:true
 
-        helper.setSubject("turtle博客网站验证邮件");
+        helper.setSubject("turtle验证");
         int code = (int) (Math.random() * 1000000);
         helper.setText(String.format(emailConst.EMAIL_TEXT, code), true);
-        helper.setTo(receiver);//邮件接收人
+        helper.setTo(email);//邮件接收人
         helper.setFrom(SENDER);//邮件发送者
 
         mailSender.send(mimeMessage);
         //验证码存缓存
-        redisUtil.set(receiver,code,600);
+        redisUtil.set(email+"code",code,600);
     }
 }

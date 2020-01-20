@@ -33,10 +33,10 @@ public class RabbitSender implements RabbitTemplate.ConfirmCallback,RabbitTempla
         rabbitTemplate.setReturnCallback(this);
     }
 
-    public void sendEmil(Map<String,String> sendMsg) {
+    public void sendCodeEmil(String email) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
         //convertAndSend(exchange:交换机名称,routingKey:路由关键字,object:发送的消息内容,correlationData:消息ID)
-        rabbitTemplate.convertAndSend("Exchange","emailDirect", sendMsg,correlationId);
+        rabbitTemplate.convertAndSend("Exchange","emailDirect", email,correlationId);
     }
 
     @Override

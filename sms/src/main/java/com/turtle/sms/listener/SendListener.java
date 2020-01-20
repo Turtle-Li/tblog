@@ -24,12 +24,12 @@ public class SendListener {
 
     @RabbitHandler
     @RabbitListener(queues = "emailDirect")
-    public void sendEmil(Map<String,String> sendMsg){
+    public void sendEmil(String email){
         try {
-            sendMailUtils.sendCodeEmail(sendMsg.get("receiver"));
+            sendMailUtils.sendCodeEmail(email);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        log.info("email: {} send success", sendMsg.get("receiver"));
+        log.info("email: {} send success", email);
     }
 }

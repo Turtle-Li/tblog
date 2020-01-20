@@ -1,7 +1,6 @@
 package com.turtle.admin.config.security;
 
 import com.turtle.admin.entity.User;
-import com.turtle.common.enums.EnableStatus;
 import com.turtle.common.security.SecurityUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,11 +14,12 @@ public final class SecurityUserFactory {
     }
 
     public static SecurityUser create(User user,List<String> authorities) {
-        boolean enabled = (user.getStatus() == EnableStatus.ENABLE) ? true : false;
+        boolean enabled = user.getIsDelete() == 1;
         return new SecurityUser(
                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
+                user.getStatus(),
                 enabled,
                 mapToGrantedAuthorities(authorities)
         );
