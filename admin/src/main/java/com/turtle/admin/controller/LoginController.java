@@ -30,6 +30,6 @@ public class LoginController {
 
     @PostMapping("/register")
     public ResultBody register(@RequestBody RegisterDto registerDto){
-        return loginService.registrer(registerDto);
+        return loginService.register(registerDto);
     }
 }

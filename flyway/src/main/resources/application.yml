@@ -1,0 +1,23 @@
+spring:
+  flyway:
+    # \u5982\u679C\u542F\u52A8\u7684\u65F6\u5019\u9700\u8981flyway\u7BA1\u7406sql\u811A\u672C\u7684\u8BDD\uFF0C\u5C06enabled\u8BBE\u7F6E\u4E3Atrue
+    enabled: true
+    # \u5982\u679C\u6570\u636E\u5E93\u4E0D\u662F\u7A7A\u8868\uFF0C\u9700\u8981\u8BBE\u7F6E\u6210 true\uFF0C\u5426\u5219\u542F\u52A8\u62A5\u9519
+    baseline-on-migrate: true
+    # \u9A8C\u8BC1\u9519\u8BEF\u65F6 \u662F\u5426\u81EA\u52A8\u6E05\u9664\u6570\u636E\u5E93 \u9AD8\u5371\u64CD\u4F5C!
+    clean-on-validation-error: false
+    # \u7F16\u7801\u683C\u5F0F\uFF0C\u9ED8\u8BA4UTF-8
+    encoding: UTF-8
+    # \u8FC1\u79FBsql\u811A\u672C\u6587\u4EF6\u5B58\u653E\u8DEF\u5F84\uFF0C\u9ED8\u8BA4db/migration
+    locations: classpath:db/turtle
+    # \u8FC1\u79FBsql\u811A\u672C\u6587\u4EF6\u540D\u79F0\u7684\u524D\u7F00\uFF0C\u9ED8\u8BA4V
+    sql-migration-prefix: V
+    # \u8FC1\u79FBsql\u811A\u672C\u6587\u4EF6\u540D\u79F0\u7684\u5206\u9694\u7B26\uFF0C\u9ED8\u8BA42\u4E2A\u4E0B\u5212\u7EBF__
+    sql-migration-separator: __
+    # \u8FC1\u79FBsql\u811A\u672C\u6587\u4EF6\u540D\u79F0\u7684\u540E\u7F00
+    sql-migration-suffixes: .sql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.111.250.3:3306/turtle?createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: 123456
