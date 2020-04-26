@@ -22,7 +22,10 @@ public class RabbitSender implements RabbitTemplate.ConfirmCallback,RabbitTempla
     private RabbitTemplate rabbitTemplate;
 
 
-    //构造方法注入
+    /**
+     * 构造方法注入
+     * @param rabbitTemplate
+     */
     @Autowired
     public RabbitSender(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;

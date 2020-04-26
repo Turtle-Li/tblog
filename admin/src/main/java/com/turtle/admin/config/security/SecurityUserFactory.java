@@ -17,7 +17,7 @@ public final class SecurityUserFactory {
         boolean enabled = user.getIsDelete() == 1;
         return new SecurityUser(
                 user.getId(),
-                user.getUsername(),
+                user.getUserName(),
                 user.getPassword(),
                 user.getStatus(),
                 enabled,

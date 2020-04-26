@@ -6,6 +6,8 @@ import com.turtle.common.vo.ResultBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author lijiayu
  * @date 2020/1/15
@@ -29,7 +31,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public ResultBody register(@RequestBody RegisterDto registerDto){
+    public ResultBody register(@RequestBody @Valid RegisterDto registerDto){
         return loginService.register(registerDto);
     }
 }

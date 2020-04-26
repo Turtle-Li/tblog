@@ -3,11 +3,17 @@ package com.turtle.admin.config.druid;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.turtle.admin.constant.SqlConf;
 import com.turtle.common.config.mybatis.DynamicDataSourceContextHolder;
 import com.turtle.common.config.mybatis.DynamicRoutingDataSource;
 import com.turtle.common.enums.DataSourceKey;
+import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -72,13 +78,43 @@ public class DruidConfig {
         MybatisConfiguration configuration = new MybatisConfiguration();
         //下划线转骆驼
         configuration.setMapUnderscoreToCamelCase(true);
-
         mybatisSqlSessionFactoryBean.setDataSource(dynamicDataSource());
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         mybatisSqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:mapper/*.xml"));
         mybatisSqlSessionFactoryBean.setConfiguration(configuration);
-
+        //逻辑删除
+        mybatisSqlSessionFactoryBean.setGlobalConfig(globalConfiguration());
+        //分页
+        mybatisSqlSessionFactoryBean.setPlugins(paginationInterceptor());
         return mybatisSqlSessionFactoryBean;
+    }
+
+    /**
+     * 分页插件
+     * @return
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
+        // paginationInterceptor.setOverflow(false);
+        // 设置最大单页限制数量，默认 500 条，-1 不受限制
+        // paginationInterceptor.setLimit(500);
+        // 开启 count 的 join 优化,只针对部分 left join
+        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
+        return paginationInterceptor;
+    }
+
+    /**
+     * 逻辑删除
+     * @return
+     */
+    @Bean
+    public GlobalConfig globalConfiguration() {
+        GlobalConfig conf = new GlobalConfig();
+        conf.setDbConfig(new GlobalConfig.DbConfig()
+                .setLogicDeleteField("isDelete"));
+        return conf;
     }
 
     /**

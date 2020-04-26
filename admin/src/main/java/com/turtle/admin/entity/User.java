@@ -1,6 +1,10 @@
 package com.turtle.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.turtle.common.entity.sql.BaseEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -14,20 +18,31 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @TableName("tbg_user")
-public class User {
-    private long id;
-    private String username;
+public class User extends BaseEntity<User> {
+    private String userName;
     private String name;
+    /**
+     * 头像
+     */
     private String avatar;
     private String email;
     private String password;
     private int status;
-    private LocalDateTime created;
-    private LocalDateTime updated;
     private LocalDateTime lastLogin;
-    private int gender;
-    private int comments;
-    private int posts;
+    /**
+     * 性别
+     */
+    private Integer gender;
+    /**
+     * 评论数
+     */
+    private Integer comments;
+    /**
+     * 文章数
+     */
+    private Integer posts;
+    /**
+     * 个性签名
+     */
     private String signature;
-    private int isDelete;
 }

@@ -61,28 +61,39 @@ public class SecurityUser implements UserDetails {
         return status;
     }
 
-    // 账户是否激活
+    /**
+     * 账户是否激活
+     */
     @JsonIgnore
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
-    // 账户是否未过期
+    /**
+     * 账户是否未过期
+     * @return
+     */
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    // 账户是否未锁定
+    /**
+     * 账户是否未锁定
+     * @return
+     */
     @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    // 密码是否未过期
+    /**
+     * 密码是否未过期
+     * @return
+     */
     @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {

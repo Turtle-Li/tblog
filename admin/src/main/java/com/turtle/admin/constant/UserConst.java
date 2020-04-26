@@ -6,9 +6,18 @@ package com.turtle.admin.constant;
  */
 public class UserConst {
 
-    public static final String DEFAULT_AVATAR = "http://q41fhx2jw.bkt.clouddn.com/default.jpg";
+    public static final String DEFAULT_AVATAR = "http://res.lijiayu.vip/default.jpg";
+    /**
+     * 正常
+     */
+    public static final int STATUS_ENABLE = 0;
+    /**
+     * VIP
+     */
+    public static final int STATUS_VIP = 1;
+    /**
+     * 冻结的
+     */
+    public static final int STATUS_FREEZE = 2;
 
-    public static final int STATUS_ENABLE = 0;//正常
-    public static final int STATUS_VIP = 1;//VIP
-    public static final int STATUS_FREEZE = 2;//冻结的
 }
