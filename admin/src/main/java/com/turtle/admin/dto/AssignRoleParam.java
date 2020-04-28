@@ -1,5 +1,7 @@
 package com.turtle.admin.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,9 +15,12 @@ import java.util.Set;
  */
 @Data
 @Accessors(chain = true)
+@ApiModel
 public class AssignRoleParam {
     @NotNull
+    @ApiModelProperty("用户id")
     private Long userId;
     @NotNull
+    @ApiModelProperty("角色id")
     private Set<Long> roleIds;
 }

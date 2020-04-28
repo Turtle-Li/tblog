@@ -1,5 +1,7 @@
 package com.turtle.admin.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -12,8 +14,10 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @Accessors(chain = true)
+@ApiModel
 public class RoleGroupParam {
     private Long id;
     @NotBlank
+    @ApiModelProperty(value = "角色组名称")
     private String name;
 }

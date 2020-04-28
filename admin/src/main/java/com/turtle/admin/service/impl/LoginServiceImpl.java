@@ -62,9 +62,9 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
     private int rememberMeExpiresSecond;
 
     @Override
-    public boolean checkName(String username) {
+    public boolean checkName(String userName) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq(SqlConf.USERNAME,username);
+        wrapper.eq(SqlConf.USERNAME,userName);
         return userMapper.selectOne(wrapper) == null;
     }
 

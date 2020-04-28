@@ -91,3 +91,6 @@ audience:
   base64Secret: MzFjYWEwMTY4ZDNkNDU2Y2EwZjZiMDU5NTIxMjJmZGI=
   name: turtle
   expiresSecond: 3600
+
+swagger:
+  ebable: true
