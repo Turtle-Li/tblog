@@ -1,4 +1,4 @@
-CREATE TABLE `tbg_user` (
+CREATE TABLE IF NOT EXISTS `tbg_user` (
   `id` bigint(20) NOT NULL,
   `user_name` varchar(32) DEFAULT NULL COMMENT '用户名',
   `name` varchar(32) DEFAULT NULL COMMENT '昵称',
@@ -23,3 +23,31 @@ CREATE TABLE IF NOT EXISTS `tbg_options` (
   `value` varchar(300) DEFAULT NULL ,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT '配置表';
+
+CREATE TABLE IF NOT EXISTS `tbg_role` (
+  `id` bigint(20) NOT NULL COMMENT '主键id',
+  `role_name` varchar(255) DEFAULT NULL COMMENT '角色标志',
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '角色名称',
+  `group_id` bigint(20) DEFAULT NULL COMMENT '组id',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_delete` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色表';
+
+CREATE TABLE IF NOT EXISTS `tbg_role_group` (
+  `id` bigint(20) NOT NULL COMMENT '主键id',
+  `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT '组名称',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_delete` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT '角色组表';
+
+CREATE TABLE IF NOT EXISTS `tbg_user_role` (
+  `id` bigint(20) NOT NULL COMMENT '主键id',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `role_id` bigint(20) NOT NULL COMMENT '角色id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT '用户角色关系表';

@@ -85,9 +85,9 @@ server:
 ##jwt
 tokenHead: bearer
 tokenHeader: Authorization
-isRememberMeExpiresSecond: 259200
+rememberMeExpiresSecond: 259200
 audience:
-  clientId: 098f6bcd4621d373cade4e832627b4f6
-  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  clientId: 31caa0168d3d456ca0f6b05952122fdb
+  base64Secret: MzFjYWEwMTY4ZDNkNDU2Y2EwZjZiMDU5NTIxMjJmZGI=
   name: turtle
   expiresSecond: 3600

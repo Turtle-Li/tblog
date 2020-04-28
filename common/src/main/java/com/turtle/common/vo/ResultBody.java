@@ -20,6 +20,11 @@ public class ResultBody {
      */
     private String message;
 
+    /**
+     * 响应内容
+     */
+    private Object data;
+
     public ResultBody() {
     }
 
@@ -44,6 +49,14 @@ public class ResultBody {
         this.message = message;
     }
 
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
     /**
      * 成功
      * @return
@@ -52,6 +65,14 @@ public class ResultBody {
         ResultBody rb = new ResultBody();
         rb.setCode(ExceptionEnum.SUCCESS.getResultCode());
         rb.setMessage(ExceptionEnum.SUCCESS.getResultMsg());
+        return rb;
+    }
+
+    public static ResultBody result(String code,String message,Object data){
+        ResultBody rb = new ResultBody();
+        rb.setCode(code);
+        rb.setMessage(message);
+        rb.setData(data);
         return rb;
     }
 

@@ -46,6 +46,12 @@ public class GlobalExceptionHandler {
         return ResultBody.error("500","NullPointerException");
     }
 
+    @ExceptionHandler(value =AccessDeniedException.class)
+    public ResultBody exceptionHandler(HttpServletRequest req, AccessDeniedException e){
+        log.error("A accessDeniedException has occurred！reason:",e);
+        return ResultBody.error("407","暂无访问权限！");
+    }
+
     /**
      * 处理其他异常
      * @param req

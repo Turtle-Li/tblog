@@ -3,24 +3,22 @@ package com.turtle.admin.dto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author lijiayu
- * @date 2020/1/20
+ * @date 2020/4/28
  * @description
  */
 @Data
 @Accessors(chain = true)
-public class RegisterDto {
+public class RoleParam {
+    private Long id;
     @NotBlank
-    private String userName;
+    private String roleName;
     @NotBlank
-    private String passWord;
-    @NotBlank
-    @Email
-    private String email;
-    @NotBlank
-    private String code;
+    private String name;
+    @NotNull
+    private Long groupId;
 }

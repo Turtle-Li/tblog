@@ -14,7 +14,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtConfig {
+public class JwtHelper {
 
     /**
      * 解析jwt
@@ -34,16 +34,14 @@ public class JwtConfig {
      * 构建jwt
      *
      * @param userName       账户名
-     * @param adminUid       账户id
-     * @param roleName       账户拥有角色名
+     * @param userId         账户id
      * @param audience       代表这个Jwt的接受对象
      * @param issuer         代表这个Jwt的签发主题
      * @param TTLMillis      jwt有效时间
      * @param base64Security 加密方式
      * @return
      */
-    public String createJWT(String userName, String adminUid, String roleName,
-                            String audience, String issuer, long TTLMillis, String base64Security) {
+    public String createJWT(String userName, Long userId, String audience, String issuer, long TTLMillis, String base64Security) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
@@ -52,8 +50,7 @@ public class JwtConfig {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
         //添加构成JWT的参数
         JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
-                .claim("adminUid", adminUid)
-                .claim("role", roleName)
+                .claim("userId", userId)
                 .claim("creatTime", now)
                 .setSubject(userName)
                 .setIssuer(issuer)
@@ -96,8 +93,8 @@ public class JwtConfig {
     }
 
     //从token中获取用户UID
-    public String getUserUid(String token, String base64Security) {
-        return parseJWT(token, base64Security).get("adminUid", String.class);
+    public Long getUserId(String token, String base64Security) {
+        return parseJWT(token, base64Security).get("userId", Long.class);
     }
 
     //从token中获取audience

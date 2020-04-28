@@ -6,8 +6,10 @@ package com.turtle.admin.constant;
  * @description
  */
 public final class SqlConf {
-
+    public static final String ID = "id";
+    public static final String NAME = "name";
     public static final String ISDELETE = "is_delete";
+    public static final String USERID = "user_id";
     /**
      * user表
      */

@@ -1,19 +1,17 @@
-package com.turtle.admin.config.druid;
+package com.turtle.admin.config.db;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.turtle.admin.constant.SqlConf;
+import com.turtle.admin.config.mybatisplus.MySqlInjector;
 import com.turtle.common.config.mybatis.DynamicDataSourceContextHolder;
 import com.turtle.common.config.mybatis.DynamicRoutingDataSource;
 import com.turtle.common.enums.DataSourceKey;
-import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -36,7 +34,7 @@ import java.util.Map;
  * @description
  */
 @Configuration
-public class DruidConfig {
+public class DBConfig {
 
 
     @ConfigurationProperties(prefix = "spring.datasource.druid.master")
@@ -113,8 +111,17 @@ public class DruidConfig {
     public GlobalConfig globalConfiguration() {
         GlobalConfig conf = new GlobalConfig();
         conf.setDbConfig(new GlobalConfig.DbConfig()
-                .setLogicDeleteField("isDelete"));
+                .setLogicDeleteField("isDelete")).setSqlInjector(sqlInjector());
         return conf;
+    }
+
+    /**
+     * sql注入器
+     * @return
+     */
+    @Bean
+    public MySqlInjector sqlInjector() {
+        return new MySqlInjector();
     }
 
     /**

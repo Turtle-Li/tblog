@@ -1,15 +1,14 @@
 package com.turtle.admin.config.security;
 
 import com.turtle.common.jwt.Audience;
-import com.turtle.common.jwt.JwtConfig;
+import com.turtle.common.jwt.JwtHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -31,7 +30,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private SecurityUserDetailsService userDetailsService;
 
     @Autowired
-    private JwtConfig jwtConfig;
+    private JwtHelper jwtHelper;
 
     @Value(value = "${tokenHead}")
     private String tokenHead;
@@ -72,34 +71,35 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             final String token = authHeader.substring(tokenHead.length());
 
             //判断token是否过期
-            if (!jwtConfig.isExpiration(token, audience.getBase64Secret())) {
+            if (!jwtHelper.isExpiration(token, audience.getBase64Secret())) {
                 //刷新token过期时间
-                jwtConfig.refreshToken(token, audience.getBase64Secret(), expiresSecond);
+                jwtHelper.refreshToken(token, audience.getBase64Secret(), expiresSecond);
                 log.info("token未过期，刷新token");
             } else {
                 chain.doFilter(request, response);
                 return;
             }
 
-            String username = jwtConfig.getUsername(token, audience.getBase64Secret());
-            String adminUid = jwtConfig.getUserUid(token, audience.getBase64Secret());
+            String username = jwtHelper.getUsername(token, audience.getBase64Secret());
+            Long userId = jwtHelper.getUserId(token, audience.getBase64Secret());
 
-            //把adminUid存储到request中
-            request.setAttribute("adminUid", adminUid);
+            //把userId存储到request中
+            request.setAttribute("userId", userId);
             logger.info("解析出来用户 : " + username);
-            logger.info("解析出来的用户Uid : " + adminUid);
+            logger.info("解析出来的用户Uid : " + userId);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-                if (jwtConfig.validateToken(token, userDetails, audience.getBase64Secret())) {
+                if (jwtHelper.validateToken(token, userDetails, audience.getBase64Secret())) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
                             request));
                     logger.info("authenticated user " + username + ", setting security context");
-                    SecurityContextHolder.getContext().setAuthentication(authentication);//以后可以security中取得SecurityUser信息
+                    //以后可以security中取得SecurityUser信息
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         }

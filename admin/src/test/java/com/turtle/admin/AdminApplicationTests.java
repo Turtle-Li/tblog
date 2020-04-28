@@ -1,24 +1,19 @@
 package com.turtle.admin;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.turtle.admin.constant.UserConst;
-import com.turtle.admin.dto.RegisterDto;
+import com.turtle.admin.dto.*;
 import com.turtle.admin.entity.User;
-import com.turtle.admin.mapper.LoginMapper;
+import com.turtle.admin.mapper.UserMapper;
 import com.turtle.admin.service.LoginService;
-import com.turtle.common.util.RedisUtil;
-import com.turtle.common.vo.ResultBody;
+import com.turtle.admin.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.keyvalue.core.IdentifierGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Random;
+import java.util.Set;
 
 @SpringBootTest
 @Slf4j
@@ -27,7 +22,9 @@ class AdminApplicationTests {
     @Autowired
     private LoginService loginService;
     @Resource
-    private LoginMapper loginMapper;
+    private UserMapper userMapper;
+    @Autowired
+    private RoleService roleService;
 
     @Test
     void send(){
@@ -35,11 +32,14 @@ class AdminApplicationTests {
     }
 
     @Test
+    void list(){
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        log.info(encoder.encode("123456"));
+    }
+
+    @Test
     void contextLoads() {
-        QueryWrapper<User> qw = new QueryWrapper<>();
-        Page page = new Page(1,2);
-        IPage ipage = loginMapper.selectPage(page,qw);
-        log.info(ipage.getRecords().toString());
+        log.info(loginService.login(new LoginParam().setUserName("lijiayu").setPassword("123456").setIsRememberMe(0)).toString());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.turtle.admin.controller;
 
-import com.turtle.admin.dto.RegisterDto;
+import com.turtle.admin.dto.LoginParam;
+import com.turtle.admin.dto.RegisterParam;
 import com.turtle.admin.service.LoginService;
 import com.turtle.common.vo.ResultBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,12 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public ResultBody register(@RequestBody @Valid RegisterDto registerDto){
-        return loginService.register(registerDto);
+    public ResultBody register(@RequestBody @Valid RegisterParam param){
+        return loginService.register(param);
+    }
+
+    @PostMapping
+    public ResultBody login(@RequestBody @Valid LoginParam param){
+        return loginService.login(param);
     }
 }
