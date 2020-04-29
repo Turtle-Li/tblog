@@ -1,0 +1,104 @@
+package com.turtle.security;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
+public class SecurityUser implements UserDetails {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    private final long uid;
+    private final String username;
+    private final String password;
+    private final int status;
+    private final boolean enabled;
+    private final Collection<? extends GrantedAuthority> authorities;
+
+    public SecurityUser(
+            long uid,
+            String username,
+            String password,
+            int status,
+            boolean enabled,
+            Collection<? extends GrantedAuthority> authorities) {
+        this.uid = uid;
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.enabled = enabled;
+        this.authorities = authorities;
+    }
+
+    //返回分配给用户的角色列表
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @JsonIgnore
+    public long getUid() {
+        return uid;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * 账户是否激活
+     */
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * 账户是否未过期
+     * @return
+     */
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * 账户是否未锁定
+     * @return
+     */
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * 密码是否未过期
+     * @return
+     */
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+}
+
