@@ -11,7 +11,7 @@ spring:
       slave:
         driver-class-name: com.mysql.cj.jdbc.Driver
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://47.111.250.3:3306/db_mblog?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://47.111.250.3:3306/sys?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
         username: root
         password: 123456
       # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -38,14 +38,11 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
       # 合并多个DruidDataSource的监控数据
       useGlobalDataSourceStat: true
-  application:
-    name: web
     #RabbitMq
   cloud:
     nacos:
       discovery:
         server-addr: 121.43.184.44:8848
-
   rabbitmq:
     host: 123.206.217.166
     port: 5672
@@ -63,6 +60,10 @@ management:
         include: "*"
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-value: 0
+      logic-not-delete-value: 1
 #web请求日志
 logbook:
   format:
@@ -73,8 +74,66 @@ logging:
   level:
     root: info
     org.zalando.logbook: TRACE
-    com.sishu: TRACE
+    com.turtle: TRACE
 server:
-  port: 8080
+  port: 8089
   servlet:
     context-path: /v1
+
+eureka:
+  client:
+    serviceUrl: #注册中心的注册地址
+      defaultZone: http://127.0.0.1:8081/eureka/
+##jwt
+tokenHead: bearer
+tokenHeader: Authorization
+rememberMeExpiresSecond: 259200
+audience:
+  clientId: 31caa0168d3d456ca0f6b05952122fdb
+  base64Secret: MzFjYWEwMTY4ZDNkNDU2Y2EwZjZiMDU5NTIxMjJmZGI=
+  name: turtle
+  expiresSecond: 3600
+
+# 是否启用httpclient
+feign:
+  httpclient:
+    enabled: false
+# 请求连接超时时间（毫秒）
+#    connection-timeout: 200
+# 是否启用httpok（性能比httpclient高）
+  okhttp:
+    enabled: true
+# 是否启用hystrix
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 2000
+        # 每台服务器最多重试次数，但是首次调用不包括在内
+        MaxAutoRetries: 1
+        # 最多重试多少台服务器
+        MaxAutoRetriesNextServer: 1
+        # 无论是请求超时或者socket read timeout都进行重试
+        OkToRetryOnAllOperations: true
+admin:
+  ribbon:
+    #负载策略   RandomRule：随机     RoundRobinRule：轮询
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+# hystrix熔断时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 6000
+swagger:
+  ebable: true

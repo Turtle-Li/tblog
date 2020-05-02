@@ -11,7 +11,7 @@ spring:
       slave:
         driver-class-name: com.mysql.cj.jdbc.Driver
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://47.111.250.3:3306/db_mblog?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://47.111.250.3:3306/sys?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
         username: root
         password: 123456
       # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -38,8 +38,6 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
       # 合并多个DruidDataSource的监控数据
       useGlobalDataSourceStat: true
-  application:
-    name: admin
     #RabbitMq
   cloud:
     nacos:
@@ -82,6 +80,10 @@ server:
   servlet:
     context-path: /v1
 
+eureka:
+  client:
+    serviceUrl: #注册中心的注册地址
+      defaultZone: http://127.0.0.1:8081/eureka/
 ##jwt
 tokenHead: bearer
 tokenHeader: Authorization
@@ -92,5 +94,22 @@ audience:
   name: turtle
   expiresSecond: 3600
 
+# 是否启用httpclient
+feign:
+  httpclient:
+    enabled: false
+# 请求连接超时时间（毫秒）
+    connection-timeout: 3000
+# 是否启用httpok（性能比httpclient高）
+  okhttp:
+    enabled: true
+# 是否启用hystrix
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
 swagger:
   ebable: true

@@ -84,12 +84,23 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.62</version>
         </dependency>
-
+        <!--feign-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.2.RELEASE</version>
+        </dependency>
         <!--javax-->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.0</version>
+        </dependency>
+        <!--eureka-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <version>2.2.2.RELEASE</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.sun.xml.bind</groupId>-->

@@ -68,6 +68,14 @@ public class ResultBody {
         return rb;
     }
 
+    public static ResultBody result(Object data){
+        ResultBody rb = new ResultBody();
+        rb.setCode(ExceptionEnum.SUCCESS.getResultCode());
+        rb.setMessage(ExceptionEnum.SUCCESS.getResultMsg());
+        rb.setData(data);
+        return rb;
+    }
+
     public static ResultBody result(String code,String message,Object data){
         ResultBody rb = new ResultBody();
         rb.setCode(code);

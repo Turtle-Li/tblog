@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    include: web
+  application:
+    name: web

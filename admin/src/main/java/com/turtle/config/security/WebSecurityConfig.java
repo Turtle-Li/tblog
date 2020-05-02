@@ -95,7 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 // 对于获取token的api要允许匿名访问
                 .antMatchers("/pub/**",
-                        "/auth/**",
+                        "/rpc/**",
                         "/login/**"
                 ).permitAll()
                 // 除上面外的所有请求全部需要鉴权认证

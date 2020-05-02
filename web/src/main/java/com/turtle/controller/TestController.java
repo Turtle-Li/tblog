@@ -1,5 +1,8 @@
 package com.turtle.controller;
 
+import com.turtle.service.FeignClientService;
+import com.turtle.vo.ResultBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+    @Autowired
+    private FeignClientService feignClientService;
+
     @RequestMapping("/A")
-    public  String  testRequest(){
-        return "正常访问请求!";
+    public ResultBody testRequest(String name) throws InterruptedException {
+        return feignClientService.feignTest(name);
     }
 }
