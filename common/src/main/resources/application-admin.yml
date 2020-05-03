@@ -53,6 +53,15 @@ spring:
     host: 47.111.250.3
     port: 6379
     timeout: 1000
+  servlet:
+    multipart:
+      enabled: true
+      # 最大文件大小
+      max-file-size: 200MB
+      # 最大请求大小
+      max-request-size: 215MB
+      # 文件写入磁盘的阈值
+      file-size-threshold: 2KB
 management:
   endpoints:
     web:
@@ -113,3 +122,8 @@ feign:
       enabled: true
 swagger:
   ebable: true
+
+accessKey: bY3OIgJyJkBCzxzC3FMEi8EjQaIHB9V3AliVpOdg
+secretKey: d3vP1EwKnwN_HeED088SoVdHGYUEtsw33RlJNPLJ
+bucket: lijiayupic
+CDN: http://res.lijiayu.vip/
