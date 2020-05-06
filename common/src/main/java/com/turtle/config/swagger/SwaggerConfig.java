@@ -33,8 +33,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public Docket createRestApi(){
         return new Docket(DocumentationType.SWAGGER_2).genericModelSubstitutes(DeferredResult.class)
                 .enable(ebable).apiInfo(apiInfo()).forCodeGeneration(true).
-                select().apis(RequestHandlerSelectors.basePackage("com.turtle.admin.controller")).
-                paths(PathSelectors.any()).build().groupName("admin").pathMapping("/");
+                select().apis(RequestHandlerSelectors.basePackage("com.turtle.controller")).
+                paths(PathSelectors.any()).build().groupName("default").pathMapping("/");
         //可以设置为扫描多个包
         /**
          * com.google.common.base.Predicate<RequestHandler> selector1 = RequestHandlerSelectors.basePackage("设置你要扫描的包路径");

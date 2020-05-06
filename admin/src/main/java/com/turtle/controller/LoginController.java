@@ -25,14 +25,14 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping("/checkName")
+    @GetMapping("/check-name")
     @ApiOperation(value = "检验用户名是否重复",notes = "需要用户传userName")
     @ApiImplicitParam(name = "userName" , value = "用户名",required = true)
     public boolean checkName(@RequestParam("userName") String userName){
         return loginService.checkName(userName);
     }
 
-    @GetMapping("/sendCode")
+    @GetMapping("/send-code")
     @ApiOperation(value = "发送验证码",notes = "发送验证码")
     @ApiImplicitParam(value = "邮箱" ,required = true)
     public ResultBody sendCode(@RequestParam("email")String email){

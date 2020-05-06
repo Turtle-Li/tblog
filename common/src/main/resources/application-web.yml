@@ -122,8 +122,8 @@ feign:
         MaxAutoRetriesNextServer: 1
         # 无论是请求超时或者socket read timeout都进行重试
         OkToRetryOnAllOperations: true
-admin:
-  ribbon:
+#admin:
+#  ribbon:
     #负载策略   RandomRule：随机     RoundRobinRule：轮询
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 # hystrix熔断时间

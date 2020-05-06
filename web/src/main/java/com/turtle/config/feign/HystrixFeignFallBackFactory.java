@@ -21,8 +21,8 @@ public class HystrixFeignFallBackFactory implements FallbackFactory<FeignClientS
 
         return new FeignClientService() {
             @Override
-            public ResultBody feignTest(String name) {
-                return ResultBody.error("error");
+            public ResultBody feignTest(int mile) {
+                return ResultBody.error("熔断");
             }
         };
     }

@@ -23,9 +23,8 @@ public class FeignService implements FeignApi {
 
     @Override
 
-    public ResultBody feignTest(String name) throws InterruptedException {
-        System.out.println("1111111");
-        Thread.sleep(1000);
+    public ResultBody feignTest(int mile) throws InterruptedException {
+        Thread.sleep(mile);
         return ResultBody.result("123");
     }
 }

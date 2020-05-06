@@ -18,7 +18,7 @@ public class TestController {
     private FeignClientService feignClientService;
 
     @RequestMapping("/A")
-    public ResultBody testRequest(String name) throws InterruptedException {
-        return feignClientService.feignTest(name);
+    public ResultBody testRequest(int mile) throws InterruptedException {
+        return feignClientService.feignTest(mile);
     }
 }

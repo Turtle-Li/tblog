@@ -16,5 +16,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface FeignApi {
 
     @GetMapping("/checkName")
-    ResultBody feignTest(@RequestParam("name") String name) throws InterruptedException;
+    ResultBody feignTest(@RequestParam("mile") int mile) throws InterruptedException;
 }
