@@ -5,12 +5,17 @@ server:
 spring:
   application:
     name: gateway
+  ## Redis 配置
+  redis:
+    host: 47.111.250.3
+    port: 6379
+    timeout: 1000
   cloud:
     gateway:
       discovery:
         locator:
           # 开启后无需每个服务单独配置
-          enabled: true
+#          enabled: true
           lower-case-service-id: true
       routes: #路由配置:参数为一个List
           - id: web #唯一标识
@@ -19,28 +24,12 @@ spring:
               - Path=/web/** #判断匹配条件,即地址带有/web/**的请求,会转发至lb:web
             filters:
               - StripPrefix=1 #去掉Path前缀,参数为1代表去掉/web
-              - name: Hystrix
-                args:
-                  name: default
-                  fallbackUri: 'forward:/default-fallback'
           - id: admin
             uri: lb://admin
             predicates:
               - Path=/admin/**
             filters:
               - StripPrefix=1
-              - name: Hystrix
-                  args:
-                    name: default
-                    fallbackUri: 'forward:/default-fallback'
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 30000
-
 eureka:
   client:
     serviceUrl: #注册中心的注册地址

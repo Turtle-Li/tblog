@@ -1,6 +1,7 @@
 package com.turtle.controller;
 
 import com.turtle.service.FeignClientService;
+import com.turtle.service.TestService;
 import com.turtle.vo.ResultBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,25 @@ public class TestController {
     @Autowired
     private FeignClientService feignClientService;
 
+    @Autowired
+    private TestService testService;
+
     @RequestMapping("/A")
-    public ResultBody testRequest(int mile) throws InterruptedException {
-        return feignClientService.feignTest(mile);
+    public ResultBody testA(int mile) throws InterruptedException {
+        System.out.println("AAAAA");
+        return testService.test(mile);
     }
+
+    @RequestMapping("/B")
+    public ResultBody testB(int mile) throws InterruptedException {
+        System.out.println("BBBBB");
+        return testService.test(mile);
+    }
+
+    @RequestMapping("/V")
+    public ResultBody testC(int mile) throws InterruptedException {
+        System.out.println("CCCCC");
+        return testService.test(mile);
+    }
+
 }
