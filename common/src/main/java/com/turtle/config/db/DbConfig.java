@@ -15,6 +15,7 @@ import com.turtle.config.mybatis.DynamicDataSourceContextHolder;
 import com.turtle.config.mybatis.DynamicRoutingDataSource;
 import com.turtle.enums.DataSourceKey;
 import io.seata.rm.datasource.DataSourceProxy;
+import io.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
