@@ -1,4 +1,4 @@
-package com.turtle.entity;
+package com.turtle.entity.sql;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

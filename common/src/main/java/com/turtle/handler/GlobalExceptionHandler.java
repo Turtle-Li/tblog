@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/1/16
  * @description
  */
-@RestControllerAdvice
+@RestControllerAdvice({"com.turtle.controller"})
 @Slf4j
 public class GlobalExceptionHandler {
     /**

@@ -1,8 +1,10 @@
 package com.turtle.config.db;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -12,6 +14,8 @@ import com.turtle.config.mybatisplus.MySqlInjector;
 import com.turtle.config.mybatis.DynamicDataSourceContextHolder;
 import com.turtle.config.mybatis.DynamicRoutingDataSource;
 import com.turtle.enums.DataSourceKey;
+import io.seata.rm.datasource.DataSourceProxy;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -34,22 +38,33 @@ import java.util.Map;
  * @description
  */
 @Configuration
-public class DBConfig {
+public class DbConfig {
 
 
     @ConfigurationProperties(prefix = "spring.datasource.druid.master")
-    @Primary
     @Bean(name = "master")
+    @Primary
     public DataSource master(){
-        return DruidDataSourceBuilder.create().build();
+        return new DruidDataSource();
     }
 
 
     @ConfigurationProperties(prefix = "spring.datasource.druid.slave")
     @Bean(name = "slave")
     public DataSource slave(){
-        return DruidDataSourceBuilder.create().build();
+        return new DruidDataSource();
     }
+
+//    @Bean("master")
+//    @Primary
+//    public DataSourceProxy masterProxy(@Qualifier("originMaster") DataSource dataSource){
+//        return new DataSourceProxy(dataSource);
+//    }
+//
+//    @Bean("slave")
+//    public DataSourceProxy slaveProxy(@Qualifier("originSlave") DataSource dataSource){
+//        return new DataSourceProxy(dataSource);
+//    }
 
     @Bean(name = "dynamicDataSource")
     public DataSource dynamicDataSource(){
@@ -110,7 +125,7 @@ public class DBConfig {
     @Bean
     public GlobalConfig globalConfiguration() {
         GlobalConfig conf = new GlobalConfig();
-        conf.setDbConfig(new GlobalConfig.DbConfig()
+        conf.setDbConfig(new GlobalConfig.DbConfig().setIdType(IdType.ASSIGN_ID)
                 .setLogicDeleteField("isDelete")).setSqlInjector(sqlInjector());
         return conf;
     }

@@ -4,7 +4,7 @@ package com.turtle.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
-import com.turtle.entity.User;
+import com.turtle.entity.sql.User;
 import com.turtle.vo.ResultBody;
 
 /**

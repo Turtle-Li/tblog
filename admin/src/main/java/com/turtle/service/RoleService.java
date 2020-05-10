@@ -4,7 +4,7 @@ import com.turtle.dto.AssignRoleParam;
 import com.turtle.dto.RoleGroupParam;
 import com.turtle.dto.RoleListDto;
 import com.turtle.dto.RoleParam;
-import com.turtle.entity.Role;
+import com.turtle.entity.sql.Role;
 import com.turtle.vo.ResultBody;
 
 import java.util.List;
@@ -28,4 +28,6 @@ public interface RoleService {
     ResultBody doRole(RoleParam param);
 
     ResultBody assign(AssignRoleParam param);
+
+    void test1();
 }

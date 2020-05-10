@@ -1,7 +1,7 @@
 package com.turtle.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.turtle.entity.Role;
+import com.turtle.entity.sql.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

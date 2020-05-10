@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-@TableName("tbg_collection")
-public class Collection {
+@TableName("tbg_favorite_blog")
+public class FavoriteBlog {
     private Long id;
     private Long userId;
     private Long blogId;

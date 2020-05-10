@@ -6,7 +6,7 @@ import com.turtle.constant.SqlConf;
 import com.turtle.constant.UserConst;
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
-import com.turtle.entity.User;
+import com.turtle.entity.sql.User;
 import com.turtle.mapper.UserMapper;
 import com.turtle.service.LoginService;
 import com.turtle.service.RoleService;

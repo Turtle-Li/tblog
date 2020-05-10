@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Autowired
-    private FeignClientService feignClientService;
 
     @Autowired
     private TestService testService;

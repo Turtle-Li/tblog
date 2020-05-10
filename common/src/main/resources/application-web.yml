@@ -40,9 +40,12 @@ spring:
       useGlobalDataSourceStat: true
     #RabbitMq
   cloud:
-    nacos:
-      discovery:
-        server-addr: 121.43.184.44:8848
+#    nacos:
+#      discovery:
+#        server-addr: 121.43.184.44:8848
+    alibaba:
+      seata:
+        tx-service-group: tblog-fescar-service-group
   rabbitmq:
     host: 123.206.217.166
     port: 5672
@@ -98,14 +101,13 @@ audience:
 feign:
   httpclient:
     enabled: false
-# 请求连接超时时间（毫秒）
-#    connection-timeout: 200
-# 是否启用httpok（性能比httpclient高）
+  # 请求连接超时时间（毫秒）
+  #    connection-timeout: 200
+  # 是否启用httpok（性能比httpclient高）
   okhttp:
     enabled: true
-# 是否启用hystrix
-  hystrix:
-    enabled: true
+  sentinel:
+    enabled: false
   compression:
     request:
       enabled: true
@@ -121,11 +123,11 @@ feign:
         # 最多重试多少台服务器
         MaxAutoRetriesNextServer: 1
         # 无论是请求超时或者socket read timeout都进行重试
-        OkToRetryOnAllOperations: true
-#admin:
-#  ribbon:
+        OkToRetryOnAllOperations: false
+    #admin:
+    #  ribbon:
     #负载策略   RandomRule：随机     RoundRobinRule：轮询
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 # hystrix熔断时间
 hystrix:
   command:
@@ -135,5 +137,16 @@ hystrix:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 6000
+#seata:
+#  enabled: true
+#  application-id: web
+#  tx-service-group: tblog_seata_group
+#  service:
+#    grouplist:
+##      default: 121.43.184.44:8091
+#      default: 127.0.0.1:8091
+#    vgroup-mapping:
+#      tblog_seata_group: default
+
 swagger:
   ebable: true

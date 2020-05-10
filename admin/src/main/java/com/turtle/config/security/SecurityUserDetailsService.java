@@ -2,8 +2,8 @@ package com.turtle.config.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.turtle.constant.SqlConf;
-import com.turtle.entity.Role;
-import com.turtle.entity.User;
+import com.turtle.entity.sql.Role;
+import com.turtle.entity.sql.User;
 import com.turtle.service.LoginService;
 import com.turtle.service.RoleService;
 import com.turtle.exception.UserAlertException;

@@ -1,4 +1,4 @@
-package com.turtle.entity;
+package com.turtle.entity.sql;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,7 +15,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("tbg_user_role")
 public class UserRole {
-    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
     private Long userId;
     private Long roleId;

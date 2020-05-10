@@ -2,10 +2,7 @@ package com.turtle.api;
 
 
 import com.turtle.vo.ResultBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lijiayu
@@ -15,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/rpc")
 public interface FeignApi {
 
-    @GetMapping("/checkName")
+    /**
+     * get请求会触发重试，请不要在get请求中保存数据。
+     **/
+
+    @PostMapping("/checkName")
     ResultBody feignTest(@RequestParam("mile") int mile) throws InterruptedException;
 }

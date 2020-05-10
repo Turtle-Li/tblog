@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @description
  */
 @Repository
-public interface CollectionMapper extends MyBaseMapper<FavoriteBlog> {
+public interface FavoriteBlogMapper extends MyBaseMapper<FavoriteBlog> {
 }

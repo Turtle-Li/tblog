@@ -3,15 +3,16 @@ package com.turtle.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.turtle.constant.SqlConf;
 import com.turtle.dto.*;
-import com.turtle.entity.Role;
-import com.turtle.entity.RoleGroup;
-import com.turtle.entity.UserRole;
+import com.turtle.entity.sql.Role;
+import com.turtle.entity.sql.RoleGroup;
+import com.turtle.entity.sql.UserRole;
 import com.turtle.mapper.RoleGroupMapper;
 import com.turtle.mapper.RoleMapper;
 import com.turtle.mapper.UserRoleMapper;
 import com.turtle.service.RoleService;
 import com.turtle.exception.UserAlertException;
 import com.turtle.vo.ResultBody;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,5 +115,10 @@ public class RoleServiceImpl implements RoleService {
         userRoleMapper.delete(new QueryWrapper<UserRole>().eq(SqlConf.USERID,param.getUserId()));
         userRoleMapper.insertBatchSomeColumn(userRoles);
         return ResultBody.success();
+    }
+
+    @Override
+    public void test1() {
+        userRoleMapper.insert(new UserRole().setRoleId(1L).setUserId(1L));
     }
 }

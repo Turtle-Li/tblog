@@ -1,7 +1,7 @@
 package com.turtle.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.turtle.entity.RoleGroup;
+import com.turtle.entity.sql.RoleGroup;
 import org.springframework.stereotype.Repository;
 
 /**

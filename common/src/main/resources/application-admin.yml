@@ -40,9 +40,12 @@ spring:
       useGlobalDataSourceStat: true
     #RabbitMq
   cloud:
-    nacos:
-      discovery:
-        server-addr: 121.43.184.44:8848
+#    nacos:
+#      discovery:
+#        server-addr: 121.43.184.44:8848
+    alibaba:
+      seata:
+        tx-service-group: tblog-fescar-service-group
   rabbitmq:
     host: 123.206.217.166
     port: 5672
@@ -114,12 +117,24 @@ feign:
     enabled: true
 # 是否启用hystrix
   hystrix:
-    enabled: true
+    enabled: false
   compression:
     request:
       enabled: true
     response:
       enabled: true
+#
+#seata:
+#  enabled: true
+#  application-id: admin
+#  tx-service-group: tblog_seata_group
+#  service:
+#    grouplist:
+##      default: 121.43.184.44:8091
+#      default: 127.0.0.1:8091
+#    vgroup-mapping:
+#      tblog_seata_group: default
+
 swagger:
   ebable: true
 

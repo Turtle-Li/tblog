@@ -1,7 +1,7 @@
 package com.turtle.config.security;
 
 import com.turtle.constant.UserConst;
-import com.turtle.entity.User;
+import com.turtle.entity.sql.User;
 import com.turtle.security.SecurityUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
