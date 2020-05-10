@@ -117,10 +117,4 @@ public class RoleServiceImpl implements RoleService {
         userRoleMapper.insertBatchSomeColumn(userRoles);
         return ResultBody.success();
     }
-
-    @Override
-    public void test1() {
-        System.out.println(RootContext.getXID());
-        userRoleMapper.insert(new UserRole().setRoleId(1L).setUserId(1L));
-    }
 }

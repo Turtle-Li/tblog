@@ -10,6 +10,4 @@ import org.springframework.stereotype.Service;
  */
 public interface TestService {
 
-    ResultBody test(int mile) throws InterruptedException;
-
 }

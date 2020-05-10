@@ -1,6 +1,6 @@
 package com.turtle.service.impl;
 
-import com.turtle.entity.sql.sql.FavoriteBlog;
+import com.turtle.entity.sql.FavoriteBlog;
 import com.turtle.mapper.FavoriteBlogMapper;
 import com.turtle.service.FeignClientService;
 import com.turtle.service.TestService;
@@ -25,18 +25,4 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private FeignClientService feignClientService;
 
-    @Override
-    @GlobalTransactional
-    public ResultBody test(int mile) throws InterruptedException {
-//        if(mile==0){
-//            throw new RuntimeException();
-//        }
-//
-//        Thread.sleep(mile);
-        System.out.println(RootContext.getXID());
-        favoriteBlogMapper.insert(new FavoriteBlog().setUserId(1L).setBlogId(1L).setDateTime(LocalDateTime.now()));
-        feignClientService.feignTest(mile);
-        int i = 1/0;
-        return ResultBody.success();
-    }
 }

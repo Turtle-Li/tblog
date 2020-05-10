@@ -1,8 +1,6 @@
-package com.turtle.entity.sql.sql;
+package com.turtle.entity.sql;
 
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 

@@ -28,6 +28,4 @@ public interface RoleService {
     ResultBody doRole(RoleParam param);
 
     ResultBody assign(AssignRoleParam param);
-
-    void test1();
 }

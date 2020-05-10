@@ -1,7 +1,6 @@
 package com.turtle.entity.sql;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.turtle.entity.sql.sql.BaseEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

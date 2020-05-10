@@ -1,7 +1,7 @@
 package com.turtle.mapper;
 
 import com.turtle.config.mybatisplus.MyBaseMapper;
-import com.turtle.entity.sql.sql.FavoriteBlog;
+import com.turtle.entity.sql.FavoriteBlog;
 import org.springframework.stereotype.Repository;
 
 /**
