@@ -95,7 +95,7 @@ server:
 eureka:
   client:
     serviceUrl: #注册中心的注册地址
-      defaultZone: http://127.0.0.1:8081/eureka/
+      defaultZone: http://47.111.250.3:8081/eureka/
 ##jwt
 tokenHead: bearer
 tokenHeader: Authorization

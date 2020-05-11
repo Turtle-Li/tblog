@@ -60,7 +60,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         //得到请求头信息authorization信息
-        final String authHeader = request.getHeader(tokenHeader);//设定为Authorization
+        final String authHeader = request.getHeader(tokenHeader);
 
         log.error("传递过来的token为:" + authHeader);
 
@@ -70,33 +70,36 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             final String token = authHeader.substring(tokenHead.length());
 
             //判断token是否过期
-            if (!jwtHelper.isExpiration(token, audience.getBase64Secret())) {
-                //刷新token过期时间
-                jwtHelper.refreshToken(token, audience.getBase64Secret(), expiresSecond);
-                log.info("token未过期，刷新token");
-            } else {
+            if (jwtHelper.isExpiration(token, audience.getBase64Secret())) {
+                log.info("token已过期，需要重新登录");
                 chain.doFilter(request, response);
                 return;
+            } else if(jwtHelper.isNeedFresh(token, audience.getBase64Secret())){
+                //刷新token过期时间
+                String newToken = jwtHelper.refreshToken(token, audience.getBase64Secret(), expiresSecond);
+                log.info("token还差5分钟过期，刷新token");
+                response.setHeader(tokenHeader,newToken);
             }
 
-            String username = jwtHelper.getUsername(token, audience.getBase64Secret());
+            String userName = jwtHelper.getUsername(token, audience.getBase64Secret());
             Long userId = jwtHelper.getUserId(token, audience.getBase64Secret());
 
-            //把userId存储到request中
+            //把userId,userName存储到request中
             request.setAttribute("userId", userId);
-            logger.info("解析出来用户 : " + username);
+            request.setAttribute("userName", userName);
+            logger.info("解析出来用户 : " + userName);
             logger.info("解析出来的用户Uid : " + userId);
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
 
                 if (jwtHelper.validateToken(token, userDetails, audience.getBase64Secret())) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
                             request));
-                    logger.info("authenticated user " + username + ", setting security context");
+                    logger.info("authenticated user " + userName + ", setting security context");
                     //以后可以security中取得SecurityUser信息
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }

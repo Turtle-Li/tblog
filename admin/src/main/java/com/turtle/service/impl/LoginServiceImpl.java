@@ -2,6 +2,7 @@ package com.turtle.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qiniu.util.StringUtils;
 import com.turtle.constant.SqlConf;
 import com.turtle.constant.UserConst;
 import com.turtle.dto.LoginParam;
@@ -25,8 +26,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author lijiayu
@@ -52,7 +56,10 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
     private Audience audience;
 
     @Value("${tokenHead}")
+
     private String tokenHead;
+    @Value("${tokenHeader}")
+    private String tokenHeader;
 
     @Value("${rememberMeExpiresSecond}")
     private int rememberMeExpiresSecond;
@@ -123,14 +130,12 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
             throw new UserAlertException("登录失败，用户名或密码错误！");
         }
 
-//        List<Role> roleList = roleService.getMyRoleList(user.getId());
-//        String roleName = roleList.stream().map(Role::getName).collect(Collectors.joining(","));
-
         int expiresSecond = param.getIsRememberMe()==1?rememberMeExpiresSecond:audience.getExpiresSecond();
 
         String jwt = jwtHelper.createJWT(user.getUserName(), user.getId(), audience.getClientId(), audience.getName(), expiresSecond * 1000, audience.getBase64Secret());
         String token = tokenHead+jwt;
-
-        return ResultBody.result(ExceptionEnum.SUCCESS.getResultCode(),ExceptionEnum.SUCCESS.getResultMsg(),token);
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        requestAttributes.getResponse().setHeader(tokenHeader,token);
+        return ResultBody.result(ExceptionEnum.SUCCESS.getResultCode(),ExceptionEnum.SUCCESS.getResultMsg(), StringUtils.isNullOrEmpty(user.getName())?user.getUserName():user.getName());
     }
 }
