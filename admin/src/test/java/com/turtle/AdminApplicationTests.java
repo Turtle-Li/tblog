@@ -2,6 +2,7 @@ package com.turtle;
 
 import com.turtle.constant.EmailConst;
 import com.turtle.dto.*;
+import com.turtle.entity.sql.User;
 import com.turtle.mapper.UserMapper;
 import com.turtle.service.ApiService;
 import com.turtle.service.LoginService;
@@ -42,7 +43,21 @@ class AdminApplicationTests {
     }
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws InterruptedException {
+        User user = new User();
+        user.setId(1259826206840233986L);
+        for (int i = 0; i < 10; i++) {
+            new Thread(() -> {
+                try {
+                    loginService.test(user,"888888");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            ).start();
+        }
+        Thread.sleep(60000);
+//        loginService.test();
     }
 
 }

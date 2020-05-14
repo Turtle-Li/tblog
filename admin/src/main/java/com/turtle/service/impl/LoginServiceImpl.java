@@ -3,6 +3,7 @@ package com.turtle.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qiniu.util.StringUtils;
+import com.turtle.aop.RedissonLock;
 import com.turtle.constant.SqlConf;
 import com.turtle.constant.UserConst;
 import com.turtle.dto.LoginParam;
@@ -137,5 +138,16 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         requestAttributes.getResponse().setHeader(tokenHeader,token);
         return ResultBody.result(ExceptionEnum.SUCCESS.getResultCode(),ExceptionEnum.SUCCESS.getResultMsg(), StringUtils.isNullOrEmpty(user.getName())?user.getUserName():user.getName());
+    }
+
+    @Override
+    @RedissonLock(leaseTime = 1,spELString = "#user.id")
+    public ResultBody test(User user,String a) throws InterruptedException {
+        User user1 = userMapper.selectById(1259826206840233986L);
+        user1.setComments(user.getComments()+1);
+        Thread.sleep(800);
+        userMapper.updateById(user1);
+        log.info("成功增加，值为"+user.getComments());
+        return ResultBody.success();
     }
 }
