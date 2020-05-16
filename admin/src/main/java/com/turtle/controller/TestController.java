@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:  测试过后删除
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/test")
 @Api(tags = {"测试是否改变数据"})
 public class TestController {
 
