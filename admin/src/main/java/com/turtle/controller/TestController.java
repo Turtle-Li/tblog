@@ -1,7 +1,6 @@
 package com.turtle.controller;
 
 import com.turtle.dto.UserUpdateInfoParam;
-import com.turtle.vo.ResultBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +21,13 @@ import javax.validation.Valid;
 public class TestController {
 
 
-    @PostMapping("/terst")
-    @ApiOperation(value = "测试",notes = "测试")
-    public void updateInfo(@RequestBody @Valid UserUpdateInfoParam userUpdateInfoParam){
+    @PostMapping("/test2")
+    @ApiOperation(value = "测试2",notes = "测试2")
+    public void test2(@RequestBody @Valid UserUpdateInfoParam userUpdateInfoParam){
+    }
+    @PostMapping("/test3")
+    @ApiOperation(value = "测试3",notes = "测试3")
+    public void test3(@RequestBody @Valid UserUpdateInfoParam userUpdateInfoParam){
     }
 
 }
