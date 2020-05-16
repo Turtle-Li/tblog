@@ -1,8 +1,15 @@
 package com.turtle.controller;
 
+import com.turtle.dto.UserUpdateInfoParam;
+import com.turtle.vo.ResultBody;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @Auther: fuzongle
@@ -15,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
 
-    public String test(){
-        return  "测试数据";
+    @PostMapping("/terst")
+    @ApiOperation(value = "测试",notes = "测试")
+    public void updateInfo(@RequestBody @Valid UserUpdateInfoParam userUpdateInfoParam){
     }
+
 }
