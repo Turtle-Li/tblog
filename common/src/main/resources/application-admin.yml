@@ -138,7 +138,13 @@ feign:
 swagger:
   ebable: true
 
+#七牛云
 accessKey: bY3OIgJyJkBCzxzC3FMEi8EjQaIHB9V3AliVpOdg
 secretKey: d3vP1EwKnwN_HeED088SoVdHGYUEtsw33RlJNPLJ
 bucket: lijiayupic
 CDN: http://res.lijiayu.vip/
+
+#顶象
+appHeader: CodeToken
+appId: f779bcf183706417df081bbaa920d435
+appSecret: 2251cf3f011339a43fb81cc7192ec498
