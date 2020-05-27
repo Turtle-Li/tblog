@@ -96,9 +96,9 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         String email = param.getEmail();
         String code = param.getCode();
 
-        if(!code.equals(redisUtil.get(email + EmailConst.EMAIL_CODE))){
-            throw new UserAlertException("验证码不正确或已过期！");
-        }
+//        if(!code.equals(redisUtil.get(email + EmailConst.EMAIL_CODE))){
+//            throw new UserAlertException("验证码不正确或已过期！");
+//        }
         QueryWrapper<User> wq = new QueryWrapper<User>().eq(SqlConf.USERNAME,userName);
         if(userMapper.selectOne(wq) != null){
             throw new UserAlertException("账号已存在！");
