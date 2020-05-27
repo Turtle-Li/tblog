@@ -12,8 +12,6 @@ import com.turtle.mapper.UserRoleMapper;
 import com.turtle.service.RoleService;
 import com.turtle.exception.UserAlertException;
 import com.turtle.vo.ResultBody;
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
