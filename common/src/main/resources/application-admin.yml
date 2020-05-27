@@ -91,13 +91,13 @@ server:
   port: 8088
   servlet:
     context-path: /v1
-
 eureka:
   client:
     serviceUrl: #注册中心的注册地址
       defaultZone: http://47.111.250.3:8081/eureka/
   instance:
     prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
 ##jwt
 tokenHead: bearer
 tokenHeader: Authorization
