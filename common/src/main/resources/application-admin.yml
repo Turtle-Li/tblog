@@ -96,6 +96,8 @@ eureka:
   client:
     serviceUrl: #注册中心的注册地址
       defaultZone: http://47.111.250.3:8081/eureka/
+  instance:
+    prefer-ip-address: true
 ##jwt
 tokenHead: bearer
 tokenHeader: Authorization
