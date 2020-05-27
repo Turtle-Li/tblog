@@ -28,7 +28,7 @@ class AdminApplicationTests {
     private RedisUtil redisUtil;
     @Test
     void send(){
-        loginService.sendCode("282189765@qq.com");
+//        loginService.sendCode("282189765@qq.com");
     }
 
     @Test
