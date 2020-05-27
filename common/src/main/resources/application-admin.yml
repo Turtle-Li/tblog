@@ -96,8 +96,9 @@ eureka:
     serviceUrl: #注册中心的注册地址
       defaultZone: http://47.111.250.3:8081/eureka/
   instance:
+    ip-address: 121.43.184.44
     prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 ##jwt
 tokenHead: bearer
 tokenHeader: Authorization
