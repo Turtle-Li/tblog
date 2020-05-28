@@ -5,8 +5,8 @@ package com.turtle.constant;
  * @date 2020/1/18
  * @description
  */
-public class emailConst {
-    public static final String EMAIL_TEXT = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+public class EmailText {
+    public static final String CODE_TEXT = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
             "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
             "<head>\n" +
             "    <meta charset=\"utf-8\">\n" +
@@ -37,7 +37,7 @@ public class emailConst {
             "            <tbody><tr>\n" +
             "                <td width=\"74\" height=\"48\" border=\"0\" align=\"center\" valign=\"middle\" style=\"padding-left:20px;\">\n" +
             "                    <a href=\"https://www.baidu.com\" target=\"_blank\" rel=\"noopener\">\n" +
-            "                        <img src=\"http://q41fhx2jw.bkt.clouddn.com/logo.png\" width=\"30\" height=\"30\" border=\"0\" style=\"margin-left: -50px\">\n" +
+            "                        <img src=\"http://res.lijiayu.vip/logo.jpg\" width=\"30\" height=\"30\" border=\"0\" style=\"margin-left: -50px\">\n" +
             "                    </a>\n" +
             "                </td>\n" +
             "                <td width=\"703\" height=\"48\" colspan=\"2\" align=\"right\" valign=\"middle\" style=\"color:#ffffff; padding-right:20px;\">\n" +

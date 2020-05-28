@@ -1,5 +1,6 @@
 package com.turtle;
 
+import com.turtle.constant.EmailConst;
 import com.turtle.dto.AssignRoleParam;
 import com.turtle.service.ApiService;
 import com.turtle.service.LoginService;
@@ -29,6 +30,7 @@ class AdminApplicationTests {
     @Test
     void send(){
 //        loginService.sendCode("282189765@qq.com");
+        System.out.println(redisUtil.get("282189765@qq.com"+EmailConst.EMAIL_CODE));
     }
 
     @Test

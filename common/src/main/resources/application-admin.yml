@@ -139,7 +139,7 @@ feign:
 #      tblog_seata_group: default
 
 swagger:
-  ebable: true
+  enable: true
 
 #七牛云
 accessKey: bY3OIgJyJkBCzxzC3FMEi8EjQaIHB9V3AliVpOdg

@@ -149,4 +149,4 @@ hystrix:
 #      tblog_seata_group: default
 
 swagger:
-  ebable: true
+  enable: true

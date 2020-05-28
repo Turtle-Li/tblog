@@ -2,6 +2,7 @@ package com.turtle.controller;
 
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
+import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.service.LoginService;
 import com.turtle.vo.ResultBody;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 /**
  * @author lijiayu
@@ -37,7 +39,7 @@ public class LoginController {
     @GetMapping("/send-code")
     @ApiOperation(value = "发送验证码",notes = "发送验证码")
     @ApiImplicitParam(value = "邮箱" ,required = true)
-    public ResultBody sendCode(@RequestParam("email")String email){
+    public ResultBody sendCode(@RequestParam("email") @Email String email){
         return loginService.sendCode(email);
     }
 
@@ -51,5 +53,11 @@ public class LoginController {
     @ApiOperation(value = "登录",notes = "登录接口")
     public ResultBody login(@RequestBody @Valid LoginParam param){
         return loginService.login(param);
+    }
+
+    @PostMapping("/send-forget-email")
+    @ApiOperation("忘记密码发送邮件")
+    public ResultBody sendForgetEmail(@RequestBody @Valid UserForgetEmailParam param){
+        return loginService.sendForgetEmail(param);
     }
 }

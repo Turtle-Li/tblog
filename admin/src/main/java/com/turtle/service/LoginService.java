@@ -4,6 +4,7 @@ package com.turtle.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
+import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.entity.sql.User;
 import com.turtle.vo.ResultBody;
 
@@ -43,5 +44,5 @@ public interface LoginService extends IService<User> {
      */
     ResultBody login(LoginParam param);
 
-    ResultBody test(User user,String a) throws InterruptedException;
+    ResultBody sendForgetEmail(UserForgetEmailParam param);
 }

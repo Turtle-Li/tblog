@@ -1,7 +1,7 @@
 package com.turtle.util;
 
 import com.turtle.constant.EmailConst;
-import com.turtle.constant.emailConst;
+import com.turtle.constant.EmailText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -42,7 +42,7 @@ public class SendMailUtils {
 
         helper.setSubject("turtle验证");
         String code = String.format("%06d",new Random().nextInt(1000000));
-        helper.setText(String.format(emailConst.EMAIL_TEXT, code), true);
+        helper.setText(String.format(EmailText.CODE_TEXT, code), true);
         //邮件接收人
         helper.setTo(email);
         //邮件发送者

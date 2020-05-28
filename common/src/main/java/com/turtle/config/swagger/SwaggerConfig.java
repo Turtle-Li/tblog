@@ -28,13 +28,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
     /**
      * 设置一个开关，生产版本为false，关闭swagger
      */
-    @Value("${swagger.ebable}")
-    private boolean ebable;
+    @Value("${swagger.enable}")
+    private boolean enable;
 
     @Bean
     public Docket createRestApi(){
         return new Docket(DocumentationType.SWAGGER_2).genericModelSubstitutes(DeferredResult.class)
-                .enable(ebable).apiInfo(apiInfo()).forCodeGeneration(true).
+                .enable(enable).apiInfo(apiInfo()).forCodeGeneration(true).
                 select().apis(RequestHandlerSelectors.basePackage("com.turtle.controller")).
                 paths(PathSelectors.any()).build().groupName("default").pathMapping("/");
         //可以设置为扫描多个包
