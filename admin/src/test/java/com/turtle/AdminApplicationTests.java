@@ -2,6 +2,7 @@ package com.turtle;
 
 import com.turtle.constant.EmailConst;
 import com.turtle.dto.AssignRoleParam;
+import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.service.ApiService;
 import com.turtle.service.LoginService;
 import com.turtle.service.RoleService;
@@ -29,8 +30,8 @@ class AdminApplicationTests {
     private RedisUtil redisUtil;
     @Test
     void send(){
-//        loginService.sendCode("282189765@qq.com");
-        System.out.println(redisUtil.get("282189765@qq.com"+EmailConst.EMAIL_CODE));
+        loginService.sendForgetEmail(new UserForgetEmailParam().setUserName("lijiayu").setEmail("282189765@qq.com"));
+//        System.out.println(redisUtil.get("282189765@qq.com"+EmailConst.EMAIL_CODE));
     }
 
     @Test

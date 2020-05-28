@@ -1,5 +1,6 @@
 package com.turtle.listener;
 
+import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.util.SendMailUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -22,13 +23,20 @@ public class SendListener {
     private SendMailUtils sendMailUtils;
 
     @RabbitHandler
-    @RabbitListener(queues = "emailDirect")
-    public void sendEmil(String email){
+    @RabbitListener(queues = "codeDirect")
+    public void sendCode(String email){
         try {
             sendMailUtils.sendCodeEmail(email);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
         log.info("email: {} send success", email);
+    }
+
+    @RabbitHandler
+    @RabbitListener(queues = "forgetDirect")
+    public void sendForget(UserForgetEmailParam param){
+        log.info(param.getUserName());
+        log.info("email: {} send success", param.getEmail());
     }
 }

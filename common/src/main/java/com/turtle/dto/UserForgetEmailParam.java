@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * @author lijiayu
@@ -13,9 +14,9 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @Accessors(chain = true)
-public class UserForgetEmailParam {
+public class UserForgetEmailParam implements Serializable {
     @NotBlank
-    private String username;
+    private String userName;
 
     @Email
     private String email;

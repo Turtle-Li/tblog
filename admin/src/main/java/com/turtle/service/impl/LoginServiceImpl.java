@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qiniu.util.StringUtils;
 import com.turtle.aop.RedissonLock;
+import com.turtle.aop.ValidCode;
+import com.turtle.constant.AlertExceptionConst;
 import com.turtle.constant.SqlConf;
 import com.turtle.constant.UserConst;
 import com.turtle.dto.LoginParam;
@@ -19,6 +21,7 @@ import com.turtle.exception.UserAlertException;
 import com.turtle.jwt.Audience;
 import com.turtle.jwt.JwtHelper;
 import com.turtle.send.RabbitSender;
+import com.turtle.service.UserService;
 import com.turtle.util.CheckUtils;
 import com.turtle.util.RedisUtil;
 import com.turtle.vo.ResultBody;
@@ -44,7 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements LoginService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
     @Autowired
     private RoleService roleService;
 
@@ -68,9 +71,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
 
     @Override
     public boolean checkName(String userName) {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq(SqlConf.USERNAME,userName);
-        return userMapper.selectOne(wrapper) == null;
+        return userService.getUserByUserName(userName) == null;
     }
 
     @Override
@@ -78,9 +79,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         if(!CheckUtils.checkEmail(email)){
             throw new UserAlertException("邮箱格式不正确！");
         }
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("email",email);
-        if(userMapper.selectOne(wrapper)!=null){
+        if(userService.getUserByEmail(email)!=null){
             throw new UserAlertException("该邮箱已被注册！");
         }
         if(redisUtil.getExpire(email + EmailConst.EMAIL_CODE)>540){
@@ -100,12 +99,11 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
 //        if(!code.equals(redisUtil.get(email + EmailConst.EMAIL_CODE))){
 //            throw new UserAlertException("验证码不正确或已过期！");
 //        }
-        QueryWrapper<User> wq = new QueryWrapper<User>().eq(SqlConf.USERNAME,userName);
-        if(userMapper.selectOne(wq) != null){
-            throw new UserAlertException("账号已存在！");
+        if(userService.getUserByUserName(userName) != null){
+            throw new UserAlertException(AlertExceptionConst.USERNAME_ALREADY_EXISTS);
         }
-        if(userMapper.selectOne(wq.eq(SqlConf.EMAIL,email)) != null){
-            throw new UserAlertException("该邮箱已被使用！");
+        if(userService.getUserByEmail(email) != null){
+            throw new UserAlertException(AlertExceptionConst.EMAIL_ALREADY_USED);
         }
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User()
@@ -113,23 +111,23 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
                 .setAvatar(UserConst.DEFAULT_AVATAR)
                 .setUserName(userName)
                 .setEmail(email);
-        userMapper.insert(user);
+        userService.save(user);
         return ResultBody.success();
     }
 
 
     @Override
+    @ValidCode
     public ResultBody login(LoginParam param) {
-        QueryWrapper<User> qw = new QueryWrapper<User>().eq(SqlConf.USERNAME, param.getUserName());
-        User user = userMapper.selectOne(qw);
+        User user = userService.getUserByUserName(param.getUserName());
         if(user==null){
-            throw new UserAlertException("用户名不存在！");
+            throw new UserAlertException(AlertExceptionConst.UNKNOW_USERNAME);
         }
         //验证密码
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean matches = encoder.matches(param.getPassword(), user.getPassword());
         if(!matches){
-            throw new UserAlertException("登录失败，用户名或密码错误！");
+            throw new UserAlertException(AlertExceptionConst.INCORRECT_NAME_PASSWORD);
         }
 
         int expiresSecond = param.getIsRememberMe()==1?rememberMeExpiresSecond:audience.getExpiresSecond();
@@ -144,7 +142,14 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
 
     @Override
     public ResultBody sendForgetEmail(UserForgetEmailParam param) {
-
-        return null;
+        User user = userService.getUserByUserName(param.getUserName());
+        if(user==null){
+            throw new UserAlertException(AlertExceptionConst.UNKNOW_USERNAME);
+        }
+        if(!param.getEmail().equals(user.getEmail())){
+            throw new UserAlertException(AlertExceptionConst.INCORRECT_EMAIL);
+        }
+        rabbitSender.sendForgetUrl(param);
+        return ResultBody.success();
     }
 }

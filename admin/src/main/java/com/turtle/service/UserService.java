@@ -9,6 +9,10 @@ import com.turtle.vo.ResultBody;
  * 用户业务接口类
  */
 public interface UserService   extends IService<User> {
+    User getUserByUserName(String userName);
+
+    User getUserByEmail(String email);
+
     ResultBody updateInfo(UserUpdateInfoParam userUpdateInfoParam);
 
     ResultBody getByTokenInfo(String token);

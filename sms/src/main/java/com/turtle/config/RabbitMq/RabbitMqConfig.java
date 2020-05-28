@@ -1,4 +1,4 @@
-package com.turtle.config;
+package com.turtle.config.RabbitMq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
@@ -27,8 +27,13 @@ public class RabbitMqConfig {
     private CachingConnectionFactory connectionFactory;
 
     @Bean
-    public Queue dirQueue() {
-        return new Queue("emailDirect");
+    public Queue codeQueue() {
+        return new Queue("codeDirect");
+    }
+
+    @Bean
+    public Queue forgetQueue() {
+        return new Queue("forgetDirect");
     }
 
     @Bean
@@ -37,8 +42,13 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    Binding bindingExchangeDirect(@Qualifier("dirQueue")Queue dirQueue, DirectExchange directExchange){
-        return  BindingBuilder.bind(dirQueue).to(directExchange).with("emailDirect");
+    Binding bindingExchangeCode(@Qualifier("codeQueue")Queue dirQueue, DirectExchange directExchange){
+        return  BindingBuilder.bind(dirQueue).to(directExchange).with("codeDirect");
+    }
+
+    @Bean
+    Binding bindingExchangeForget(@Qualifier("forgetQueue")Queue dirQueue, DirectExchange directExchange){
+        return  BindingBuilder.bind(dirQueue).to(directExchange).with("forgetDirect");
     }
 
     @Bean

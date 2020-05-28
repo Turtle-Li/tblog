@@ -21,7 +21,7 @@ import java.util.Random;
 @Component
 public class SendMailUtils {
 
-    @Value(value = "${spring.mail.username}")
+    @Value(value = "${spring.mail.userName}")
     public String SENDER;
     @Autowired
     private JavaMailSenderImpl mailSender;

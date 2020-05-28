@@ -50,7 +50,7 @@ spring:
     timeout: 1000
   #mail
   mail:
-    username: turtle_blog@163.com
+    userName: turtle_blog@163.com
     password: turtle123456
     host: smtp.163.com
 
@@ -67,5 +67,13 @@ spring:
     alibaba:
       seata:
         tx-service-group: tblog-fescar-service-group
+eureka:
+  client:
+    serviceUrl: #注册中心的注册地址
+      defaultZone: http://47.111.250.3:8081/eureka/
+  instance:
+    ip-address: 121.43.184.44
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 swagger:
   enable: false

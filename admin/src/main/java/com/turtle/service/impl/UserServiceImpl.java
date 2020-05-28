@@ -1,6 +1,8 @@
 package com.turtle.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.turtle.constant.SqlConf;
 import com.turtle.dto.TokenUserDto;
 import com.turtle.dto.UserUpdateInfoParam;
 import com.turtle.entity.sql.User;
@@ -34,6 +36,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Autowired
     private JwtHelper jwtHelper;
+
+    @Override
+    public User getUserByUserName(String userName) {
+        QueryWrapper<User> qw = new QueryWrapper<User>().eq(SqlConf.USERNAME, userName);
+        return userMapper.selectOne(qw);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.eq("email",email);
+        return userMapper.selectOne(qw);
+    }
 
     @Override
     public ResultBody updateInfo(UserUpdateInfoParam userInfoParam) {

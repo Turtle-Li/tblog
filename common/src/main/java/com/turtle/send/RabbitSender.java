@@ -1,5 +1,6 @@
 package com.turtle.send;
 
+import com.turtle.dto.UserForgetEmailParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -39,7 +40,13 @@ public class RabbitSender implements RabbitTemplate.ConfirmCallback,RabbitTempla
     public void sendCodeEmil(String email) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
         //convertAndSend(exchange:交换机名称,routingKey:路由关键字,object:发送的消息内容,correlationData:消息ID)
-        rabbitTemplate.convertAndSend("Exchange","emailDirect", email,correlationId);
+        rabbitTemplate.convertAndSend("Exchange","codeDirect", email,correlationId);
+    }
+
+    public void sendForgetUrl(UserForgetEmailParam param){
+        CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
+        //convertAndSend(exchange:交换机名称,routingKey:路由关键字,object:发送的消息内容,correlationData:消息ID)
+        rabbitTemplate.convertAndSend("Exchange","forgetDirect", param ,correlationId);
     }
 
     @Override
