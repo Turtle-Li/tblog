@@ -92,7 +92,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
     @Override
     public ResultBody register(RegisterParam param) {
         String userName = param.getUserName();
-        String passWord = param.getPassWord();
+        String password = param.getPassword();
         String email = param.getEmail();
         String code = param.getCode();
 
@@ -108,7 +108,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         }
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User()
-                .setPassword(encoder.encode(passWord))
+                .setPassword(encoder.encode(password))
                 .setAvatar(UserConst.DEFAULT_AVATAR)
                 .setUserName(userName)
                 .setEmail(email);

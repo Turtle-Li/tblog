@@ -17,7 +17,7 @@ public class RegisterParam {
     @NotBlank
     private String userName;
     @NotBlank
-    private String passWord;
+    private String password;
     @NotBlank
     @Email
     private String email;

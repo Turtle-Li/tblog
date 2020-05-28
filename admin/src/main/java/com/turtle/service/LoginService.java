@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 public interface LoginService extends IService<User> {
     /**
      * 校验用户名
-     * @param username
+     * @param userName
      * @return
      */
-    boolean checkName(String username);
+    boolean checkName(String userName);
 
     /**
      * 发送验证码

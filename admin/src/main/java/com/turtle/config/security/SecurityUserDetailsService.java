@@ -25,13 +25,13 @@ public class SecurityUserDetailsService implements UserDetailsService {
     private RoleService roleService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         QueryWrapper<User> qw = new QueryWrapper<>();
-        qw.eq(SqlConf.USERNAME,username);
+        qw.eq(SqlConf.USERNAME,userName);
 
         User user = loginService.getOne(qw);
         if(user == null){
-            throw new UserAlertException(String.format("找不到用户名为'%s'的用户",username));
+            throw new UserAlertException(String.format("找不到用户名为'%s'的用户",userName));
         }
         List<Role> myRoleList = roleService.getMyRoleList(user.getId());
         //查询用户信息后创建
