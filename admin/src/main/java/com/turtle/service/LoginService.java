@@ -45,4 +45,6 @@ public interface LoginService extends IService<User> {
     ResultBody login(LoginParam param);
 
     ResultBody sendForgetEmail(UserForgetEmailParam param);
+
+    boolean validSid(String sid,String userName);
 }

@@ -36,7 +36,11 @@ public class SendListener {
     @RabbitHandler
     @RabbitListener(queues = "forgetDirect")
     public void sendForget(UserForgetEmailParam param){
-        log.info(param.getUserName());
+        try {
+            sendMailUtils.sendForgetEmail(param);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         log.info("email: {} send success", param.getEmail());
     }
 }

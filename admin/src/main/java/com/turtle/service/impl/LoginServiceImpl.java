@@ -12,6 +12,7 @@ import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
 import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.entity.sql.User;
+import com.turtle.exception.UserPopupException;
 import com.turtle.mapper.UserMapper;
 import com.turtle.service.LoginService;
 import com.turtle.service.RoleService;
@@ -28,9 +29,11 @@ import com.turtle.vo.ResultBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -151,5 +154,17 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         }
         rabbitSender.sendForgetUrl(param);
         return ResultBody.success();
+    }
+
+    @Override
+    public boolean validSid(String sid, String userName) {
+        if(!redisUtil.hasKey(userName+EmailConst.EMAIL_FORGET)){
+            throw new UserPopupException("链接已失效，请重新申请找回密码");
+        }
+        String uid = String.valueOf(redisUtil.get(userName+EmailConst.EMAIL_FORGET));
+        if(!sid.equals(DigestUtils.md5DigestAsHex((userName + uid).getBytes()))){
+            throw new UserPopupException("链接有误，请重新申请找回密码");
+        }
+        return true;
     }
 }

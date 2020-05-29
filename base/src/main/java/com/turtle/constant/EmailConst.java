@@ -10,4 +10,6 @@ public class EmailConst {
      * 邮件code尾缀
      */
     public static final String EMAIL_CODE = "code";
+
+    public static final String EMAIL_FORGET = "forget";
 }

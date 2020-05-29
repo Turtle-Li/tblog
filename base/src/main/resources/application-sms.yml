@@ -77,3 +77,5 @@ eureka:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 swagger:
   enable: false
+server:
+  port: 8060

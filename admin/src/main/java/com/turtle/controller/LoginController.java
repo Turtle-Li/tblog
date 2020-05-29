@@ -2,6 +2,7 @@ package com.turtle.controller;
 
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
+import com.turtle.dto.UserChangePasswordParam;
 import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.service.LoginService;
 import com.turtle.vo.ResultBody;
@@ -12,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.io.IOException;
 
 /**
  * @author lijiayu
@@ -32,8 +36,9 @@ public class LoginController {
     @GetMapping("/check-name")
     @ApiOperation(value = "检验用户名是否重复",notes = "需要用户传userName")
     @ApiImplicitParam(name = "userName" , value = "用户名",required = true)
-    public boolean checkName(@RequestParam("userName") String userName){
-        return loginService.checkName(userName);
+    public ResultBody checkName(@RequestParam("userName") String userName){
+        boolean flag = loginService.checkName(userName);
+        return ResultBody.result(flag);
     }
 
     @GetMapping("/send-code")
@@ -60,4 +65,19 @@ public class LoginController {
     public ResultBody sendForgetEmail(@RequestBody @Valid UserForgetEmailParam param){
         return loginService.sendForgetEmail(param);
     }
+
+    @GetMapping("/valid-sid")
+    @ApiOperation("验证修改密码链接")
+    public ResultBody validSid(@RequestParam("sid") String sid, @RequestParam("userName") String userName) {
+        boolean flag = loginService.validSid(sid, userName);
+        return ResultBody.result(flag);
+    }
+
+    @PostMapping("/change-password")
+    @ApiOperation("修改密码")
+    public ResultBody changePassword(@RequestBody @Valid UserChangePasswordParam param){
+
+        return ResultBody.success();
+    }
+
 }
