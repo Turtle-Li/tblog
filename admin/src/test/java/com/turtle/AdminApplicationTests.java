@@ -30,8 +30,9 @@ class AdminApplicationTests {
     private RedisUtil redisUtil;
     @Test
     void send(){
-        loginService.sendForgetEmail(new UserForgetEmailParam().setUserName("lijiayu").setEmail("282189765@qq.com"));
+//        loginService.sendForgetEmail(new UserForgetEmailParam().setUserName("lijiayu").setEmail("282189765@qq.com"));
 //        System.out.println(redisUtil.get("282189765@qq.com"+EmailConst.EMAIL_CODE));
+        loginService.checkName("lijiayu");
     }
 
     @Test

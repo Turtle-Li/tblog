@@ -1,4 +1,4 @@
-package com.turtle.config.RabbitMq;
+package com.turtle.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;

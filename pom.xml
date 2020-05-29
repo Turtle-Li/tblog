@@ -27,6 +27,7 @@
         <module>auth</module>
         <module>web</module>
         <module>automation</module>
+        <module>base</module>
     </modules>
     <build>
         <plugins>
