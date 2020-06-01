@@ -51,16 +51,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public ResultBody updateInfo(UserUpdateInfoParam userInfoParam) {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = new User().setName(userInfoParam.getName())
-                .setAvatar(userInfoParam.getAvatar())
-                .setGender(userInfoParam.getGender())
-                .setPassword(encoder.encode(userInfoParam.getPassword()));
-        user.setId(userInfoParam.getId());
-        user.setUpdateTime(LocalDateTime.now());
+    public void updateInfo(UserUpdateInfoParam param) {
+        User user = new User().setName(param.getName())
+                .setId(param.getId())
+                .setAvatar(param.getAvatar())
+                .setGender(param.getGender())
+                .setSignature(param.getSignature());
         userMapper.updateById(user);
-        return ResultBody.success();
     }
 
     @Override

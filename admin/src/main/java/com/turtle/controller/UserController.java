@@ -24,10 +24,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/update-info")
+    @PutMapping("/update-info")
     @ApiOperation(value = "修改信息",notes = "修改用户基本信息")
     public ResultBody updateInfo(@RequestBody @Valid UserUpdateInfoParam userUpdateInfoParam){
-        return userService.updateInfo(userUpdateInfoParam);
+        userService.updateInfo(userUpdateInfoParam);
+        return ResultBody.success();
     }
 
     @PostMapping("/token-user")

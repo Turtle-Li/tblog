@@ -28,8 +28,8 @@ public class UserUpdateInfoParam {
     @ApiModelProperty(value = "性别")
     private Integer gender;
 
-    @ApiModelProperty(value = "密码")
-    private String password;
+    @ApiModelProperty(value = "个性签名")
+    private String signature;
 
 
 }

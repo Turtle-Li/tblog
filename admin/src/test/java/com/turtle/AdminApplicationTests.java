@@ -3,9 +3,11 @@ package com.turtle;
 import com.turtle.constant.EmailConst;
 import com.turtle.dto.AssignRoleParam;
 import com.turtle.dto.UserForgetEmailParam;
+import com.turtle.dto.UserUpdateInfoParam;
 import com.turtle.service.ApiService;
 import com.turtle.service.LoginService;
 import com.turtle.service.RoleService;
+import com.turtle.service.UserService;
 import com.turtle.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,8 @@ class AdminApplicationTests {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private ApiService apiService;
     @Autowired
@@ -42,7 +46,6 @@ class AdminApplicationTests {
 
     @Test
     void contextLoads() throws InterruptedException {
-//        CompletableFuture<String> c1 = CompletableFuture.supplyAsync(() -> "aaaa");
-        System.out.println("111");
+        userService.updateInfo(new UserUpdateInfoParam().setId(1265585436445605889L).setGender(1).setName("wangyidong").setSignature("1111"));
     }
 }

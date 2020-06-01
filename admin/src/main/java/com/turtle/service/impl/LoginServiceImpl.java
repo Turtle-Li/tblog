@@ -41,6 +41,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 /**
  * @author lijiayu
@@ -140,6 +141,10 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         String token = tokenHead+jwt;
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         requestAttributes.getResponse().setHeader(tokenHeader,token);
+
+        //修改最后登录时间
+        user.setLastLogin(LocalDateTime.now());
+        userService.updateById(user);
         return StringUtils.isNullOrEmpty(user.getName())?user.getUserName():user.getName();
     }
 

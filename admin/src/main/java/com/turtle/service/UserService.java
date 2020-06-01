@@ -13,7 +13,7 @@ public interface UserService   extends IService<User> {
 
     User getUserByEmail(String email);
 
-    ResultBody updateInfo(UserUpdateInfoParam userUpdateInfoParam);
+    void updateInfo(UserUpdateInfoParam userUpdateInfoParam);
 
     ResultBody getByTokenInfo(String token);
 }

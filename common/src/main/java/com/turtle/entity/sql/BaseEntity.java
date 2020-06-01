@@ -18,4 +18,10 @@ public class BaseEntity<T> {
     private LocalDateTime updateTime;
 
     private Integer isDelete;
+
+    @SuppressWarnings("unchecked")
+    public T setId(Long id) {
+        this.id = id;
+        return (T) this;
+    }
 }
