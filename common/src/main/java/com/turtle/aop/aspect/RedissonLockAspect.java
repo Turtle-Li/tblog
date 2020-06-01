@@ -58,7 +58,7 @@ public class RedissonLockAspect {
         int waitTime = redissonLock.waitTime();
 
         RLock rLock = redisson.getLock(key);
-        boolean res = rLock.tryLock(waitTime, leaseTime, TimeUnit.SECONDS);
+        boolean res = rLock.tryLock(waitTime, leaseTime, TimeUnit.MILLISECONDS);
         if (res) {
             log.info("取到锁");
             obj = joinPoint.proceed();

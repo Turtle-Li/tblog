@@ -4,6 +4,7 @@ package com.turtle.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
+import com.turtle.dto.UserChangePasswordParam;
 import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.entity.sql.User;
 import com.turtle.vo.ResultBody;
@@ -28,23 +29,25 @@ public interface LoginService extends IService<User> {
      * @param email
      * @return
      */
-    ResultBody sendCode(String email);
+    void sendCode(String email);
 
     /**
      * 注册
      * @param param
      * @return
      */
-    ResultBody register(RegisterParam param);
+    void register(RegisterParam param);
 
     /**
      * 登录
      * @param param
      * @return
      */
-    ResultBody login(LoginParam param);
+    String login(LoginParam param);
 
-    ResultBody sendForgetEmail(UserForgetEmailParam param);
+    void sendForgetEmail(UserForgetEmailParam param);
 
     boolean validSid(String sid,String userName);
+
+    void changePassowrd(UserChangePasswordParam param);
 }

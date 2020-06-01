@@ -45,25 +45,29 @@ public class LoginController {
     @ApiOperation(value = "发送验证码",notes = "发送验证码")
     @ApiImplicitParam(value = "邮箱" ,required = true)
     public ResultBody sendCode(@RequestParam("email") @Email String email){
-        return loginService.sendCode(email);
+        loginService.sendCode(email);
+        return ResultBody.success();
     }
 
     @PostMapping("/register")
     @ApiOperation(value = "注册",notes = "注册接口")
     public ResultBody register(@RequestBody @Valid RegisterParam param){
-        return loginService.register(param);
+        loginService.register(param);
+        return ResultBody.success();
     }
 
     @PostMapping
     @ApiOperation(value = "登录",notes = "登录接口")
     public ResultBody login(@RequestBody @Valid LoginParam param){
-        return loginService.login(param);
+        String name = loginService.login(param);
+        return ResultBody.result(name);
     }
 
     @PostMapping("/send-forget-email")
     @ApiOperation("忘记密码发送邮件")
     public ResultBody sendForgetEmail(@RequestBody @Valid UserForgetEmailParam param){
-        return loginService.sendForgetEmail(param);
+        loginService.sendForgetEmail(param);
+        return ResultBody.success();
     }
 
     @GetMapping("/valid-sid")
@@ -76,7 +80,7 @@ public class LoginController {
     @PostMapping("/change-password")
     @ApiOperation("修改密码")
     public ResultBody changePassword(@RequestBody @Valid UserChangePasswordParam param){
-
+        loginService.changePassowrd(param);
         return ResultBody.success();
     }
 

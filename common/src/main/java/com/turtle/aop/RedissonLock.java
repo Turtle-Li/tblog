@@ -22,11 +22,11 @@ public @interface RedissonLock {
     /**
      * 锁多久后自动释放（单位：秒）
      */
-    int leaseTime() default 10;
+    int leaseTime() default 1;
 
     /**
      * 最多等待时间（单位：秒），没取到走失败
      * @return
      */
-    int waitTime() default 5;
+    int waitTime() default 200;
 }

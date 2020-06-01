@@ -10,6 +10,7 @@ import com.turtle.constant.SqlConf;
 import com.turtle.constant.UserConst;
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
+import com.turtle.dto.UserChangePasswordParam;
 import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.entity.sql.User;
 import com.turtle.exception.UserPopupException;
@@ -39,6 +40,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author lijiayu
@@ -78,7 +80,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
     }
 
     @Override
-    public ResultBody sendCode(String email) {
+    public void sendCode(String email) {
         if(!CheckUtils.checkEmail(email)){
             throw new UserAlertException("邮箱格式不正确！");
         }
@@ -89,11 +91,11 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
             throw new UserAlertException("邮件发送间隔1分钟！");
         }
         rabbitSender.sendCodeEmil(email);
-        return ResultBody.success();
     }
 
     @Override
-    public ResultBody register(RegisterParam param) {
+    @RedissonLock(spELString = "#param.userName")
+    public void register(RegisterParam param) {
         String userName = param.getUserName();
         String password = param.getPassword();
         String email = param.getEmail();
@@ -115,13 +117,12 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
                 .setUserName(userName)
                 .setEmail(email);
         userService.save(user);
-        return ResultBody.success();
     }
 
 
     @Override
     @ValidCode
-    public ResultBody login(LoginParam param) {
+    public String login(LoginParam param) {
         User user = userService.getUserByUserName(param.getUserName());
         if(user==null){
             throw new UserAlertException(AlertExceptionConst.UNKNOW_USERNAME);
@@ -139,12 +140,12 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         String token = tokenHead+jwt;
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         requestAttributes.getResponse().setHeader(tokenHeader,token);
-        return ResultBody.result(ExceptionEnum.SUCCESS.getResultCode(),ExceptionEnum.SUCCESS.getResultMsg(), StringUtils.isNullOrEmpty(user.getName())?user.getUserName():user.getName());
+        return StringUtils.isNullOrEmpty(user.getName())?user.getUserName():user.getName();
     }
 
 
     @Override
-    public ResultBody sendForgetEmail(UserForgetEmailParam param) {
+    public void sendForgetEmail(UserForgetEmailParam param) {
         User user = userService.getUserByUserName(param.getUserName());
         if(user==null){
             throw new UserAlertException(AlertExceptionConst.UNKNOW_USERNAME);
@@ -153,7 +154,6 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
             throw new UserAlertException(AlertExceptionConst.INCORRECT_EMAIL);
         }
         rabbitSender.sendForgetUrl(param);
-        return ResultBody.success();
     }
 
     @Override
@@ -166,5 +166,23 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
             throw new UserPopupException("链接有误，请重新申请找回密码");
         }
         return true;
+    }
+
+    @Override
+    public void changePassowrd(UserChangePasswordParam param) {
+        String password = param.getPassword();
+        String userName = param.getUserName();
+        String sid = param.getSid();
+
+        //校验sid
+        this.validSid(sid,userName);
+
+        User user = userService.getUserByUserName(userName);
+        if(user==null){
+            throw new UserAlertException(AlertExceptionConst.UNKNOW_USERNAME);
+        }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(password));
+        userService.updateById(user);
     }
 }
