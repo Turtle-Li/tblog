@@ -49,7 +49,7 @@ public class CaptchaUtil {
             log.error("校验验证码服务器出错！");
             throw new FrontRequestException("校验验证码服务器出错！");
         }
-        //针对一些token冒用的情况，业务方可以采集客户端ip随token一起提交到验证码服务，验证码服务除了判断token的合法性还会校验提交业务参数的客户端ip和验证码颁发token的客户端ip是否一致
+        //针对一些token冒用的情况，采集客户端ip随token一起提交到验证码服务，验证码服务除了判断token的合法性还会校验提交业务参数的客户端ip和验证码颁发token的客户端ip是否一致
         log.info(response.getCaptchaStatus());
         //确保验证状态是SERVER_SUCCESS，SDK中有容错机制，在网络出现异常的情况会返回通过
         log.info(response.getIp());

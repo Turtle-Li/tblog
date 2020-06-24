@@ -1,9 +1,6 @@
 package com.turtle;
 
-import com.turtle.constant.EmailConst;
-import com.turtle.constant.UserConst;
-import com.turtle.dto.*;
-import com.turtle.entity.sql.User;
+import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.service.ApiService;
 import com.turtle.service.LoginService;
 import com.turtle.service.RoleService;
@@ -15,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 @SpringBootTest
 @Slf4j
@@ -47,8 +41,6 @@ class AdminApplicationTests {
 
     @Test
     void contextLoads() throws InterruptedException {
-        PageEntity<User> list = userService.getList(new UserListParam().setName("li").setStatus(0).setEndTime(LocalDateTime.now()));
-        System.out.println(list.getData());
-        userService.updateStatus(1265585436445605889L, UserConst.STATUS_FREEZE);
+        System.out.println(userService.get(1259826206840233986L));
     }
 }

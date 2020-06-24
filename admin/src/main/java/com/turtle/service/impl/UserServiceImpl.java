@@ -12,8 +12,7 @@ import com.turtle.dto.UserListParam;
 import com.turtle.dto.UserUpdateInfoParam;
 import com.turtle.entity.sql.User;
 import com.turtle.exception.UserAlertException;
-import com.turtle.jwt.Audience;
-import com.turtle.jwt.JwtHelper;
+import com.turtle.extend.UserMapping;
 import com.turtle.mapper.UserMapper;
 import com.turtle.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,10 +33,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     private UserMapper userMapper;
 
     @Autowired
-    private Audience audience;
-
-    @Autowired
-    private JwtHelper jwtHelper;
+    private UserMapping userMapping;
 
     @Override
     public User getUserByUserName(String userName) {
@@ -55,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     @Override
     public UserDto get(Long id) {
         User user = userMapper.selectById(id);
-        return UserDto.builder().id(user.getId()).build();
+        return userMapping.sourceToTarget(user);
     }
 
     @Override

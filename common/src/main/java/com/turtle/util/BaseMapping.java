@@ -3,7 +3,6 @@ package com.turtle.util;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.MapperConfig;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -11,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * @author lijiayu
  * @date 2020/6/9
- * @description
+ * @description MapStruct工具类
  */
 @MapperConfig
 public interface BaseMapping<SOURCE, TARGET> {
@@ -21,7 +20,6 @@ public interface BaseMapping<SOURCE, TARGET> {
      * @param var1
      * @return
      */
-    @Mapping(target = "createTime", dateFormat = "yyyy-MM-dd HH:mm:ss")
     TARGET sourceToTarget(SOURCE var1);
 
     /**
