@@ -1,5 +1,6 @@
 package com.turtle.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -9,6 +10,7 @@ import lombok.experimental.Accessors;
  * @description
  */
 @Data
+@Builder
 @Accessors(chain = true)
 public class RoleDto {
     private Long id;

@@ -6,21 +6,20 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.turtle.constant.AlertExceptionConst;
 import com.turtle.constant.SqlConf;
-import com.turtle.dto.*;
+import com.turtle.dto.PageEntity;
+import com.turtle.dto.UserDto;
+import com.turtle.dto.UserListParam;
+import com.turtle.dto.UserUpdateInfoParam;
 import com.turtle.entity.sql.User;
 import com.turtle.exception.UserAlertException;
 import com.turtle.jwt.Audience;
 import com.turtle.jwt.JwtHelper;
 import com.turtle.mapper.UserMapper;
 import com.turtle.service.UserService;
-import com.turtle.vo.ResultBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 
 /**
  * @Auther: fuzongle
@@ -49,7 +48,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     @Override
     public User getUserByEmail(String email) {
         QueryWrapper<User> qw = new QueryWrapper<>();
-        qw.eq("email",email);
+        qw.eq(SqlConf.EMAIL,email);
         return userMapper.selectOne(qw);
     }
 
@@ -78,22 +77,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public void updateInfo(UserUpdateInfoParam param) {
-        User user = new User().setName(param.getName())
-                .setId(param.getId())
-                .setAvatar(param.getAvatar())
-                .setGender(param.getGender())
-                .setSignature(param.getSignature());
+        User user = User.builder()
+                .id(param.getId())
+                .name(param.getName())
+                .avatar(param.getAvatar())
+                .gender(param.getGender())
+                .signature(param.getSignature())
+                .build();
         userMapper.updateById(user);
     }
 
-    @Override
-    public ResultBody getByTokenInfo(String token) {
-        Long userId = jwtHelper.getUserId(token, audience.getBase64Secret());
-        User user = userMapper.selectById(userId);
-        TokenUserDto tokenUserDto = new TokenUserDto().setId(userId)
-                .setAvatar(user.getAvatar())
-                .setName(user.getName())
-                .setUserName(user.getUserName());
-        return ResultBody.result(tokenUserDto);
-    }
 }

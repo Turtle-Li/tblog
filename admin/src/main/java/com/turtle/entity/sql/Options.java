@@ -1,6 +1,7 @@
 package com.turtle.entity.sql;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -10,6 +11,7 @@ import lombok.experimental.Accessors;
  * @description
  */
 @Data
+@Builder
 @Accessors(chain = true)
 @TableName("tbg_options")
 public class Options {

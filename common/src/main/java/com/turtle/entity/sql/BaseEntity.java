@@ -1,6 +1,7 @@
 package com.turtle.entity.sql;
 
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
  * @description
  */
 @Data
+@SuperBuilder(toBuilder = true)
 public class BaseEntity<T> {
     private Long id;
 
@@ -19,9 +21,4 @@ public class BaseEntity<T> {
 
     private Integer isDelete;
 
-    @SuppressWarnings("unchecked")
-    public T setId(Long id) {
-        this.id = id;
-        return (T) this;
-    }
 }

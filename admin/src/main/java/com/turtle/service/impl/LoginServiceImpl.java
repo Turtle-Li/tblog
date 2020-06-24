@@ -1,36 +1,31 @@
 package com.turtle.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qiniu.util.StringUtils;
 import com.turtle.aop.RedissonLock;
 import com.turtle.aop.ValidCode;
 import com.turtle.constant.AlertExceptionConst;
-import com.turtle.constant.SqlConf;
+import com.turtle.constant.EmailConst;
 import com.turtle.constant.UserConst;
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
 import com.turtle.dto.UserChangePasswordParam;
 import com.turtle.dto.UserForgetEmailParam;
 import com.turtle.entity.sql.User;
-import com.turtle.exception.UserPopupException;
-import com.turtle.mapper.UserMapper;
-import com.turtle.service.LoginService;
-import com.turtle.service.RoleService;
-import com.turtle.constant.EmailConst;
-import com.turtle.enums.ExceptionEnum;
 import com.turtle.exception.UserAlertException;
+import com.turtle.exception.UserPopupException;
 import com.turtle.jwt.Audience;
 import com.turtle.jwt.JwtHelper;
+import com.turtle.mapper.UserMapper;
 import com.turtle.send.RabbitSender;
+import com.turtle.service.LoginService;
+import com.turtle.service.RoleService;
 import com.turtle.service.UserService;
 import com.turtle.util.CheckUtils;
 import com.turtle.util.RedisUtil;
-import com.turtle.vo.ResultBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,8 +34,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
@@ -112,11 +105,13 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
             throw new UserAlertException(AlertExceptionConst.EMAIL_ALREADY_USED);
         }
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = new User()
-                .setPassword(encoder.encode(password))
-                .setAvatar(UserConst.DEFAULT_AVATAR)
-                .setUserName(userName)
-                .setEmail(email);
+        User user = User
+                .builder()
+                .password(encoder.encode(password))
+                .avatar(UserConst.DEFAULT_AVATAR)
+                .userName(userName)
+                .email(email)
+                .build();
         userService.save(user);
     }
 

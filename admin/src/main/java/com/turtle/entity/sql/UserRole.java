@@ -1,8 +1,7 @@
 package com.turtle.entity.sql;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -11,6 +10,7 @@ import lombok.experimental.Accessors;
  * @date 2020/4/27
  * @description
  */
+@Builder
 @Data
 @Accessors(chain = true)
 @TableName("tbg_user_role")

@@ -57,9 +57,4 @@ public class AdminController {
         return ResultBody.success();
     }
 
-    @PostMapping("/token-user")
-    @ApiOperation(value = "获取用户信息",notes = "通过token获取用户基本信息")
-    public ResultBody getByTokenInfo(@RequestAttribute("token")  String token){
-        return userService.getByTokenInfo(token);
-    }
 }

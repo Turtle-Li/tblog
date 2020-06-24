@@ -19,13 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
  * @author lijiayu
  * @date 2020/5/3
- * @description
+ * @description 七牛云相关方法
  */
 @Service
 @Slf4j

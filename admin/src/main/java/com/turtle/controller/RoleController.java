@@ -38,18 +38,21 @@ public class RoleController {
     @PostMapping("/group")
     @ApiOperation(value = "操作角色组")
     public ResultBody doGroup(@RequestBody @Valid RoleGroupParam param){
-        return roleService.doGroup(param);
+        roleService.doGroup(param);
+        return ResultBody.success();
     }
 
     @PostMapping
     @ApiOperation("操作角色")
     public ResultBody doRole(@RequestBody @Valid RoleParam param){
-        return roleService.doRole(param);
+        roleService.doRole(param);
+        return ResultBody.success();
     }
 
     @PostMapping("/assign")
     @ApiOperation("分配角色")
     public ResultBody assign(@RequestBody @Valid AssignRoleParam param){
-        return roleService.assign(param);
+        roleService.assign(param);
+        return ResultBody.success();
     }
 }

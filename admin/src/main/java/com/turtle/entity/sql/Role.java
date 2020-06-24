@@ -1,7 +1,9 @@
 package com.turtle.entity.sql;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
@@ -9,7 +11,9 @@ import lombok.experimental.Accessors;
  * @date 2020/4/27
  * @description
  */
-@Data
+@Setter
+@Getter
+@Builder
 @Accessors(chain = true)
 @TableName("tbg_role")
 public class Role extends BaseEntity<Role> {
