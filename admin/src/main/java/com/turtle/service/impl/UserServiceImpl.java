@@ -1,11 +1,14 @@
 package com.turtle.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.turtle.constant.AlertExceptionConst;
 import com.turtle.constant.SqlConf;
-import com.turtle.dto.TokenUserDto;
-import com.turtle.dto.UserUpdateInfoParam;
+import com.turtle.dto.*;
 import com.turtle.entity.sql.User;
+import com.turtle.exception.UserAlertException;
 import com.turtle.jwt.Audience;
 import com.turtle.jwt.JwtHelper;
 import com.turtle.mapper.UserMapper;
@@ -48,6 +51,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         QueryWrapper<User> qw = new QueryWrapper<>();
         qw.eq("email",email);
         return userMapper.selectOne(qw);
+    }
+
+    @Override
+    public UserDto get(Long id) {
+        User user = userMapper.selectById(id);
+        return UserDto.builder().id(user.getId()).build();
+    }
+
+    @Override
+    public PageEntity<User> getList(UserListParam param) {
+        Page<User> page = new Page<>(param.getPage(),param.getSize());
+        IPage<User> iPage = userMapper.getListPage(page, param);
+        return PageEntity.of(iPage.getTotal(),iPage.getRecords());
+    }
+
+    @Override
+    public void updateStatus(Long id, Integer status) {
+        User user = userMapper.selectById(id);
+        if(user==null){
+            throw new UserAlertException(AlertExceptionConst.NOT_FIND_USERID);
+        }
+        user.setStatus(status);
+        userMapper.updateById(user);
     }
 
     @Override

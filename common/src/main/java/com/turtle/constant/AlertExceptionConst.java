@@ -6,6 +6,8 @@ package com.turtle.constant;
  * @description
  */
 public class AlertExceptionConst {
+    public static final String NOT_FIND_USERID = "找不到该id的账户";
+
     public static final String USERNAME_ALREADY_EXISTS = "账号已存在";
 
     public static final String EMAIL_ALREADY_USED = "该邮箱已被使用";

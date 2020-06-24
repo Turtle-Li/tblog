@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turtle.mapper.UserMapper">
+    <select id="getListPage" resultType="com.turtle.entity.sql.User">
+        select *
+        from tbg_user
+        <where>
+            <if test="param.name != null and param.name != ''">
+                and CONCAT(user_name,'/',IFNULL(name,'')) like CONCAT('%',#{param.name},'%')
+            </if>
+            <if test="param.status != null">
+                and status = #{param.status}
+            </if>
+            <if test="param.startTime != null">
+                and create_time <![CDATA[>=]]> #{param.startTime}
+            </if>
+            <if test="param.endTime != null">
+                and create_time <![CDATA[<=]]> #{param.endTime}
+            </if>
+        </where>
+    </select>
+</mapper>

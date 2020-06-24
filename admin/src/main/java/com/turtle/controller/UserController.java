@@ -1,6 +1,8 @@
 package com.turtle.controller;
 
+import com.turtle.dto.UserDto;
 import com.turtle.dto.UserUpdateInfoParam;
+import com.turtle.entity.sql.User;
 import com.turtle.service.UserService;
 import com.turtle.vo.ResultBody;
 import io.swagger.annotations.Api;
@@ -20,20 +22,22 @@ import javax.validation.Valid;
 @Api(tags = {"用户相关功能"})
 public class UserController {
 
-
     @Autowired
     private UserService userService;
 
-    @PutMapping("/update-info")
-    @ApiOperation(value = "修改信息",notes = "修改用户基本信息")
-    public ResultBody updateInfo(@RequestBody @Valid UserUpdateInfoParam userUpdateInfoParam){
-        userService.updateInfo(userUpdateInfoParam);
+    @GetMapping
+    public ResultBody get(@RequestAttribute Long userId){
+        UserDto userDto = userService.get(userId);
+        return ResultBody.result(userDto);
+    }
+
+    @PutMapping
+    public ResultBody update(@RequestBody UserUpdateInfoParam param,
+                             @RequestAttribute Long userId){
+        userService.updateInfo(param.setId(userId));
         return ResultBody.success();
     }
 
-    @PostMapping("/token-user")
-    @ApiOperation(value = "获取用户信息",notes = "通过token获取用户基本信息")
-    public ResultBody getByTokenInfo(@RequestAttribute("token")  String token){
-        return userService.getByTokenInfo(token);
-    }
+    
+
 }
