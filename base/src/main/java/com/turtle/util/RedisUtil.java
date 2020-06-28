@@ -1,6 +1,7 @@
 package com.turtle.util;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -562,6 +563,57 @@ public class RedisUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+//  =======================zset=====================
+
+    /**
+     * 有序集合放入缓存
+     * @param key 键
+     * @param value 值
+     * @param score 得分
+     * @return
+     */
+    public boolean zSet(String key , Object value, double score){
+        try {
+            redisTemplate.opsForZSet().add(key,value,score);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 倒序获取排序
+     * @param key 键
+     * @param start 起始
+     * @param end 结束
+     * @return
+     */
+    public Set<Object> zReverseRange(String key,long start,long end){
+        try{
+            return redisTemplate.opsForZSet().reverseRange(key, start, end);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 倒序获取排序（包含score字段）
+     * @param key 键
+     * @param start 起始
+     * @param end 结束
+     * @return
+     */
+    public Set<ZSetOperations.TypedTuple<Object>> zReverseRangeWithScores(String key,long start,long end){
+        try{
+            return redisTemplate.opsForZSet().reverseRangeWithScores(key, start, end);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }
