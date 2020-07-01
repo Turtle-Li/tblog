@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Accessors(chain = true)
 @TableName("tbg_role")
-public class Role extends BaseEntity<Role> {
+public class Role extends BaseEntity {
     /**
      * 角色标识
      */

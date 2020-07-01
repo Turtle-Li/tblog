@@ -16,6 +16,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Accessors(chain = true)
 @TableName("tbg_role_group")
-public class RoleGroup extends BaseEntity<RoleGroup> {
+public class RoleGroup extends BaseEntity {
     private String name;
 }

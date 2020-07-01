@@ -22,6 +22,7 @@ public class UserDto {
     private Long id;
     private String userName;
     private String name;
+    private String avatar;
     private String email;
     private Integer status;
     private LocalDateTime lastLogin;

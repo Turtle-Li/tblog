@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 
 /**
  * @Auther: fuzongle
@@ -32,7 +34,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
+    @Resource
     private UserMapping userMapping;
 
     @Override

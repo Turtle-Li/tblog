@@ -616,4 +616,65 @@ public class RedisUtil {
             return null;
         }
     }
+
+    /**
+     * 修改元素分值
+     * @param key
+     * @param value
+     * @param score
+     * @return
+     */
+    public double zIncreScore(String key,Object value,double score){
+        try{
+            return redisTemplate.opsForZSet().incrementScore(key, value, score);
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 获取长度
+     * @param key
+     * @return
+     */
+    public long zSize(String key){
+        try{
+            return redisTemplate.opsForZSet().zCard(key);
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 根据值批量移除元素
+     * @param key
+     * @param values
+     * @return
+     */
+    public long zRemove(String key,Object... values){
+        try{
+            return redisTemplate.opsForZSet().remove(key,values);
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 根绝排序范围删除元素
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public long zRemoveRange(String key,long start,long end){
+        try{
+            return redisTemplate.opsForZSet().removeRange(key, start, end);
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

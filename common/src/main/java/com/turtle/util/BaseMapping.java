@@ -3,6 +3,7 @@ package com.turtle.util;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.MapperConfig;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
  * @date 2020/6/9
  * @description MapStruct工具类
  */
-@MapperConfig
+@MapperConfig(unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface BaseMapping<SOURCE, TARGET> {
 
     /**

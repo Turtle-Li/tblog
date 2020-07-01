@@ -1,6 +1,7 @@
 package com.turtle.entity.sql;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,9 +19,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 @TableName("tbg_user")
-public class User extends BaseEntity<User> {
+public class User extends BaseEntity {
     private String userName;
     private String name;
     /**
@@ -29,7 +31,7 @@ public class User extends BaseEntity<User> {
     private String avatar;
     private String email;
     private String password;
-    private int status;
+    private Integer status;
     private LocalDateTime lastLogin;
     /**
      * 性别
