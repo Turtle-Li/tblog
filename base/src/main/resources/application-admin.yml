@@ -151,3 +151,6 @@ CDN: http://res.lijiayu.vip/
 appHeader: CodeToken
 appId: f779bcf183706417df081bbaa920d435
 appSecret: 2251cf3f011339a43fb81cc7192ec498
+
+#腾讯位置服务
+addressKey: 4IGBZ-EM5L6-PPFS7-MSM2G-4BAA7-QWBMJ

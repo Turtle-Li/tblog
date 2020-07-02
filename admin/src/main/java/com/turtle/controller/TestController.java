@@ -1,6 +1,7 @@
 package com.turtle.controller;
 
 import com.turtle.dto.UserUpdateInfoParam;
+import com.turtle.util.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,8 @@ public class TestController {
 
     @PostMapping("/test2")
     @ApiOperation(value = "测试2",notes = "测试2")
-    public void test2(@RequestBody @Valid UserUpdateInfoParam userUpdateInfoParam){
+    public String test2(){
+        return IpUtil.getIp();
     }
     @PostMapping("/test3")
     @ApiOperation(value = "测试3",notes = "测试3")
