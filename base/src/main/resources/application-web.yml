@@ -5,15 +5,15 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         # 主数据源，默认的
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://47.111.250.3:3306/turtle?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-        username: root
-        password: 123456
+        url: jdbc:mysql://rm-bp1j580ksg6bnh2h1mo.mysql.rds.aliyuncs.com:3306/tblog?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        username: tblog
+        password: Tblog6888@
       slave:
         driver-class-name: com.mysql.cj.jdbc.Driver
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://47.111.250.3:3306/sys?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-        username: root
-        password: 123456
+        url: jdbc:mysql://rm-bp1j580ksg6bnh2h1mo.mysql.rds.aliyuncs.com:3306/tblog?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        username: tblog
+        password: Tblog6888@
       # 下面为连接池的补充设置，应用到上面所有数据源中
       # 初始化大小，最小，最大
       initialSize: 5

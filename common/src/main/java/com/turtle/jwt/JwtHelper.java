@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -23,10 +22,9 @@ public class JwtHelper {
      */
     public Claims parseJWT(String token, String base64Security) {
         try {
-            Claims claims = Jwts.parser()
+            return Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))
                     .parseClaimsJws(token).getBody();
-            return claims;
         } catch (Exception ex) {
             return null;
         }
