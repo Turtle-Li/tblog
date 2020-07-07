@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * @date 2020/6/9
  * @description MapStruct工具类
  */
-@MapperConfig(unmappedSourcePolicy = ReportingPolicy.IGNORE)
+@MapperConfig(unmappedSourcePolicy = ReportingPolicy.IGNORE,unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BaseMapping<SOURCE, TARGET> {
 
     /**

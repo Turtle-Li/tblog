@@ -34,7 +34,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 
 /**
  * @author lijiayu
@@ -137,9 +136,8 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         requestAttributes.getResponse().setHeader(tokenHeader,token);
 
-        //修改最后登录时间
-        user.setLastLogin(LocalDateTime.now());
-        userService.updateById(user);
+        //todo 登录日志管理
+
         return StringUtils.isNullOrEmpty(user.getName())?user.getUserName():user.getName();
     }
 

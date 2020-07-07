@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
-
 /**
  * @author lijiayu
  * @date 2020/6/1
@@ -25,9 +23,6 @@ public class UserDto {
     private String avatar;
     private String email;
     private Integer status;
-    private LocalDateTime lastLogin;
     private Integer gender;
-    private Integer comments;
-    private Integer posts;
     private String signature;
 }

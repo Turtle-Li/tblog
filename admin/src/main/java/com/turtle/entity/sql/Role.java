@@ -1,22 +1,23 @@
 package com.turtle.entity.sql;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 /**
  * @author lijiayu
  * @date 2020/4/27
  * @description
  */
-@Setter
-@Getter
-@SuperBuilder
+@Data
+@Builder
 @Accessors(chain = true)
 @TableName("tbg_role")
-public class Role extends BaseEntity {
+public class Role {
+    private Long id;
     /**
      * 角色标识
      */
@@ -29,4 +30,8 @@ public class Role extends BaseEntity {
      * 角色组id
      */
     private Long groupId;
+
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    private Boolean isDelete;
 }
