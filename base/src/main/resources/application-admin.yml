@@ -39,13 +39,6 @@ spring:
       # 合并多个DruidDataSource的监控数据
       useGlobalDataSourceStat: true
     #RabbitMq
-  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 121.43.184.44:8848
-    alibaba:
-      seata:
-        tx-service-group: tblog-fescar-service-group
   rabbitmq:
     host: 123.206.217.166
     port: 5672
@@ -76,6 +69,18 @@ mybatis-plus:
     db-config:
       logic-delete-value: 0
       logic-not-delete-value: 1
+seata:
+  enabled: true
+  applicationId: ${spring.application.name}
+  txServiceGroup: tblog-service-group
+  service:
+    vgroup-mapping:
+      tblog-service-group: seata-server
+  registry:
+    type: eureka
+    eureka:
+      serviceUrl: http://47.111.250.3:8081/eureka
+      application: seata-server
 #web请求日志
 logbook:
   format:

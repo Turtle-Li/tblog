@@ -63,10 +63,6 @@ spring:
             required: true
           ssl:
             enable: true
-  cloud:
-    alibaba:
-      seata:
-        tx-service-group: tblog-fescar-service-group
 eureka:
   client:
     serviceUrl: #注册中心的注册地址

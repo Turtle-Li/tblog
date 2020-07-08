@@ -39,13 +39,6 @@ spring:
       # 合并多个DruidDataSource的监控数据
       useGlobalDataSourceStat: true
     #RabbitMq
-  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 121.43.184.44:8848
-    alibaba:
-      seata:
-        tx-service-group: tblog-fescar-service-group
   rabbitmq:
     host: 123.206.217.166
     port: 5672
@@ -67,6 +60,18 @@ mybatis-plus:
     db-config:
       logic-delete-value: 0
       logic-not-delete-value: 1
+seata:
+  enabled: true
+  applicationId: ${spring.application.name}
+  txServiceGroup: tblog-service-group
+  service:
+    vgroup-mapping:
+      tblog-service-group: seata-server
+  registry:
+    type: eureka
+    eureka:
+      serviceUrl: http://47.111.250.3:8081/eureka
+      application: seata-server
 #web请求日志
 logbook:
   format:
@@ -87,6 +92,10 @@ eureka:
   client:
     serviceUrl: #注册中心的注册地址
       defaultZone: http://47.111.250.3:8081/eureka/
+  instance:
+    #    ip-address: 121.43.184.44
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
 ##jwt
 tokenHead: bearer
 tokenHeader: Authorization
@@ -137,16 +146,13 @@ hystrix:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 6000
-#seata:
-#  enabled: true
-#  application-id: web
-#  tx-service-group: tblog_seata_group
-#  service:
-#    grouplist:
-##      default: 121.43.184.44:8091
-#      default: 127.0.0.1:8091
-#    vgroup-mapping:
-#      tblog_seata_group: default
-
 swagger:
   enable: true
+
+#顶象
+appHeader: CodeToken
+appId: f779bcf183706417df081bbaa920d435
+appSecret: 2251cf3f011339a43fb81cc7192ec498
+
+#腾讯位置服务
+addressKey: 4IGBZ-EM5L6-PPFS7-MSM2G-4BAA7-QWBMJ
