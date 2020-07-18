@@ -126,7 +126,13 @@ public class JwtHelper {
         return !isExpiration(token, base64Security);
     }
 
-    //更新token
+    /**
+     * 更新token
+     * @param token
+     * @param base64Security
+     * @param TTLMillis 毫秒
+     * @return
+     */
     public String refreshToken(String token, String base64Security, long TTLMillis) {
         String refreshedToken;
         try {

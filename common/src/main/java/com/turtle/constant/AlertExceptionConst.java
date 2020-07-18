@@ -17,4 +17,6 @@ public class AlertExceptionConst {
     public static final String INCORRECT_NAME_PASSWORD = "登录失败，用户名或密码错误！";
 
     public static final String INCORRECT_EMAIL = "邮箱不正确";
+
+    public static final String ACCOUNT_FROZEN = "该账户已被冻结！";
 }

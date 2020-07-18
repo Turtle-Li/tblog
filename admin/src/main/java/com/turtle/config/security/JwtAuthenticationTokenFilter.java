@@ -1,5 +1,6 @@
 package com.turtle.config.security;
 
+import com.turtle.constant.AlertExceptionConst;
 import com.turtle.jwt.Audience;
 import com.turtle.jwt.JwtHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -76,9 +77,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 return;
             } else if(jwtHelper.isNeedFresh(token, audience.getBase64Secret())){
                 //刷新token过期时间
-                String newToken = jwtHelper.refreshToken(token, audience.getBase64Secret(), expiresSecond);
+                String newToken = jwtHelper.refreshToken(token, audience.getBase64Secret(), expiresSecond*1000);
                 log.info("token还差5分钟过期，刷新token");
-                response.setHeader(tokenHeader,newToken);
+                response.setHeader(tokenHeader,tokenHead+newToken);
             }
 
             String userName = jwtHelper.getUsername(token, audience.getBase64Secret());
@@ -87,19 +88,26 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             //把userId,userName存储到request中
             request.setAttribute("userId", userId);
             request.setAttribute("userName", userName);
-            logger.info("解析出来用户 : " + userName);
-            logger.info("解析出来的用户Uid : " + userId);
+            log.info("解析出来用户 : " + userName);
+            log.info("解析出来的用户Uid : " + userId);
 
             if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
+
+                //账号是否可用
+                if(!userDetails.isEnabled()){
+                    log.info(AlertExceptionConst.ACCOUNT_FROZEN);
+                    chain.doFilter(request,response);
+                    return;
+                }
 
                 if (jwtHelper.validateToken(token, userDetails, audience.getBase64Secret())) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
                             request));
-                    logger.info("authenticated user " + userName + ", setting security context");
+                    log.info("authenticated user " + userName + ", setting security context");
                     //以后可以security中取得SecurityUser信息
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }

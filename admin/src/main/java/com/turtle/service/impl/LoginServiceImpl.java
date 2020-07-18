@@ -3,9 +3,9 @@ package com.turtle.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qiniu.util.StringUtils;
 import com.turtle.aop.RedissonLock;
-import com.turtle.aop.ValidCode;
 import com.turtle.constant.AlertExceptionConst;
 import com.turtle.constant.EmailConst;
+import com.turtle.constant.RedisConst;
 import com.turtle.constant.UserConst;
 import com.turtle.dto.LoginParam;
 import com.turtle.dto.RegisterParam;
@@ -116,16 +116,28 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
 
 
     @Override
-    @ValidCode
+    //@ValidCode
     public String login(LoginParam param) {
         User user = userService.getUserByUserName(param.getUserName());
         if(user==null){
             throw new UserAlertException(AlertExceptionConst.UNKNOW_USERNAME);
         }
+        if(UserConst.STATUS_FREEZE==user.getStatus()){
+            throw new UserAlertException(AlertExceptionConst.ACCOUNT_FROZEN);
+        }
+        if(redisUtil.hasKey(user.getId()+RedisConst.LOGIN_LOCK)){
+            throw new UserAlertException("登录失败次数过多，账号已被锁定，请10分钟后再试");
+        }
         //验证密码
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean matches = encoder.matches(param.getPassword(), user.getPassword());
         if(!matches){
+            //登录失败次数+1
+            redisUtil.incr(user.getId()+RedisConst.LOGIN_ERROR_COUNT,1);
+            redisUtil.expire(user.getId()+RedisConst.LOGIN_ERROR_COUNT,300);
+            if((int)redisUtil.get(user.getId()+RedisConst.LOGIN_ERROR_COUNT)>5){
+                redisUtil.set(user.getId()+RedisConst.LOGIN_LOCK,"",600);
+            }
             throw new UserAlertException(AlertExceptionConst.INCORRECT_NAME_PASSWORD);
         }
 

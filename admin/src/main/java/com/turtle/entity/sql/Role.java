@@ -31,6 +31,11 @@ public class Role {
      */
     private Long groupId;
 
+    /**
+     * 描述
+     */
+    private String description;
+
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private Boolean isDelete;
