@@ -22,6 +22,7 @@ import com.turtle.service.LoginService;
 import com.turtle.service.RoleService;
 import com.turtle.service.UserService;
 import com.turtle.util.CheckUtils;
+import com.turtle.util.IpUtil;
 import com.turtle.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,10 +123,13 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         if(user==null){
             throw new UserAlertException(AlertExceptionConst.UNKNOW_USERNAME);
         }
+
+        String key = IpUtil.getIp()+user.getId();
+
         if(UserConst.STATUS_FREEZE==user.getStatus()){
             throw new UserAlertException(AlertExceptionConst.ACCOUNT_FROZEN);
         }
-        if(redisUtil.hasKey(user.getId()+RedisConst.LOGIN_LOCK)){
+        if(redisUtil.hasKey(key+RedisConst.LOGIN_LOCK)){
             throw new UserAlertException("登录失败次数过多，账号已被锁定，请10分钟后再试");
         }
         //验证密码
@@ -133,10 +137,11 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper,User> implements Lo
         boolean matches = encoder.matches(param.getPassword(), user.getPassword());
         if(!matches){
             //登录失败次数+1
-            redisUtil.incr(user.getId()+RedisConst.LOGIN_ERROR_COUNT,1);
-            redisUtil.expire(user.getId()+RedisConst.LOGIN_ERROR_COUNT,300);
-            if((int)redisUtil.get(user.getId()+RedisConst.LOGIN_ERROR_COUNT)>5){
-                redisUtil.set(user.getId()+RedisConst.LOGIN_LOCK,"",600);
+            redisUtil.incr(key+RedisConst.LOGIN_ERROR_COUNT,1);
+            redisUtil.expire(key+RedisConst.LOGIN_ERROR_COUNT,300);
+            if((int)redisUtil.get(key+RedisConst.LOGIN_ERROR_COUNT)>5){
+                redisUtil.set(key+RedisConst.LOGIN_LOCK,"",600);
+                redisUtil.del(key+RedisConst.LOGIN_ERROR_COUNT);
             }
             throw new UserAlertException(AlertExceptionConst.INCORRECT_NAME_PASSWORD);
         }
